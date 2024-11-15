@@ -1,5 +1,27 @@
+import { Helmet } from "react-helmet";
+import LeaderBoard from "../../components/userPanel/LeaderBoard";
+import ScoreLeader from "../../components/userPanel/ScoreLeader";
+import SelfResultCard from "../../components/userPanel/SelfResultCard";
+import TopFives from "../../components/userPanel/TopFives";
+
 const LeaderBoardPage = () => {
-    return <div>Leader Board Page</div>;
+    return (
+        <main className='min-h-[calc(100vh-140px)] flex items-center justify-center'>
+            <Helmet>
+                <title>Quizzes - Leaderboard</title>
+            </Helmet>
+            <LeaderBoard>
+                <SelfResultCard />
+                <TopFives>
+                    <ScoreLeader highlight={true} />
+                    <ScoreLeader />
+                    <ScoreLeader />
+                    <ScoreLeader />
+                    <ScoreLeader />
+                </TopFives>
+            </LeaderBoard>
+        </main>
+    );
 };
 
 export default LeaderBoardPage;

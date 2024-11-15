@@ -1,12 +1,16 @@
 import { Outlet } from "react-router-dom";
+import Footer from "../../components/userPanel/Footer";
+import Header from "../../components/userPanel/Header";
 
 const UsersPageLayout = () => {
     return (
-        <>
-            <div className='header h-96'>Header</div>
-            <Outlet />
-            <div className='footer mt-96'>Footer</div>
-        </>
+        <div className='bg-[#F5F3FF] min-h-screen'>
+            <div className='container mx-auto py-3'>
+                <Header />
+                <Outlet />
+                <Footer />
+            </div>
+        </div>
     );
 };
 
