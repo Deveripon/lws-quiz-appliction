@@ -1,4 +1,5 @@
 import { Navigate, Outlet, useLocation } from "react-router-dom";
+import Sidebar from "../../components/admin-panel/Sidebar";
 
 const AdminPageLayout = () => {
     const location = useLocation();
@@ -15,11 +16,10 @@ const AdminPageLayout = () => {
         return <Navigate to='/login' />;
     }
     return (
-        <>
-            <div className='header h-96'>Header</div>
+        <div className='bg-gray-100 min-h-screen flex'>
+            <Sidebar />
             <Outlet />
-            <div className='footer mt-96'>Footer</div>
-        </>
+        </div>
     );
 };
 

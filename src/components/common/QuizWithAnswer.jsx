@@ -1,6 +1,8 @@
-const QuestionWithAnswer = ({ children }) => {
+import QuizActions from "../admin-panel/QuizActions";
+
+const QuizWithAnswer = ({ children }) => {
     return (
-        <div className='rounded-lg overflow-hidden border border-gray-200 p-2 shadow-sm mb-4'>
+        <div className='rounded-lg border border-gray-200 overflow-hidden shadow-sm mb-4'>
             <div className='bg-white p-6 !pb-2'>
                 <div className='flex justify-between items-center mb-4'>
                     <h3 className='text-lg font-semibold'>
@@ -44,10 +46,9 @@ const QuestionWithAnswer = ({ children }) => {
                     </label>
                 </div>
             </div>
-            {/* <QuizActions /> */}
-            {/*  action will go here */}
+            {children}
         </div>
     );
 };
 
-export default QuestionWithAnswer;
+export default QuizWithAnswer;

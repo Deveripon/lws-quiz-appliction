@@ -12,7 +12,7 @@ import LoginPage from "../pages/auth/LoginPage";
 import RegistrationPage from "../pages/auth/RegistrationPage";
 import DashboardPage from "../pages/admin/DashboardPage";
 import QuizSetAddPage from "../pages/admin/QuizSetAddPage";
-import QuestionAddPage from "../pages/admin/QuestionAddPage";
+import QuizEntryPage from "../pages/admin/QuizEntryPage";
 import UsersPageLayout from "../pages/layouts/UsersPageLayout";
 import AdminPageLayout from "../pages/layouts/AdminPageLayout";
 import NotFoundPage from "../pages/error/NotFoundPage";
@@ -65,7 +65,7 @@ const router = createBrowserRouter(
                 <Route path='/admin/quizset/add' element={<QuizSetAddPage />} />
                 <Route
                     path='/admin/quizset/:quizsetId'
-                    element={<QuestionAddPage />}
+                    element={<QuizEntryPage />}
                 />
             </Route>
         </>
