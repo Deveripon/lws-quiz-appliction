@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-export default function Alert({ text }) {
+export default function Alert({ text, setState }) {
     const [showAlert, setShowAlert] = useState(true);
 
     return (
@@ -21,7 +21,13 @@ export default function Alert({ text }) {
                         <span>{text}</span>
                     </div>
                     <button
-                        onClick={() => setShowAlert(false)}
+                        onClick={() => {
+                            setShowAlert(false);
+                            setState({
+                                status: false,
+                                text: "",
+                            });
+                        }}
                         className='ml-4 text-red-600 hover:text-red-800 focus:outline-none'>
                         <svg
                             className='w-4 h-4'

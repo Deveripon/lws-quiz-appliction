@@ -8,6 +8,7 @@ import useAxios from "../../hooks/useAxios";
 import { server_base_url } from "../../../constant";
 import QuizPageSkeliton from "../../components/skelitons/quizPageSkeliton";
 import { useState } from "react";
+import ErrorComponent from "../../components/common/ErrorComponent";
 
 const QuizPage = () => {
     const { api } = useAxios();
@@ -16,7 +17,7 @@ const QuizPage = () => {
     const [showingIndex, setShowingIndex] = useState(0);
     const [answers, setAnswers] = useState({});
 
-    // get quizset api call
+    // get quizset by Id query function
     const getQuizById = async ({ queryKey }) => {
         try {
             const response = await api.get(
@@ -40,6 +41,8 @@ const QuizPage = () => {
         <main className='max-w-8xl mx-auto lg:h-[calc(100vh-10rem)]'>
             {isLoading ? (
                 <QuizPageSkeliton />
+            ) : error ? (
+                <ErrorComponent />
             ) : (
                 <div className='grid grid-cols-1 lg:grid-cols-3 gap-10 h-full '>
                     <QuizsetDetails answers={answers} quizset={data?.data} />

@@ -7,8 +7,13 @@ import { server_base_url } from "../../../constant";
 import useAxios from "../../hooks/useAxios";
 import useAuth from "../../hooks/useAuth";
 import { useNavigate } from "react-router-dom";
+import Alert from "../common/Alert";
 
 const Quiz = ({ quiz, showingIndex, setShowingIndex, answers, setAnswers }) => {
+    const [alert, setAlert] = useState({
+        status: false,
+        text: "",
+    });
     const { api } = useAxios();
     const [showPopup, setShowPopup] = useState(false);
     const { auth } = useAuth();
@@ -16,7 +21,7 @@ const Quiz = ({ quiz, showingIndex, setShowingIndex, answers, setAnswers }) => {
     const totalAnswer = Object.keys(answers).length;
     const navigate = useNavigate();
 
-    //api call to submit quiz
+    // Submit Quiz mutation function
     const submitQuizAnswer = async (answers) => {
         try {
             const response = await api.post(
@@ -24,7 +29,7 @@ const Quiz = ({ quiz, showingIndex, setShowingIndex, answers, setAnswers }) => {
                 { answers },
                 {
                     headers: {
-                        Authorization: `Bearer ${auth?.accessToken}`,
+                        Authorization: `Bearer ${auth.accessToken}`,
                     },
                 }
             );
@@ -48,7 +53,7 @@ const Quiz = ({ quiz, showingIndex, setShowingIndex, answers, setAnswers }) => {
         mutationKey: ["quizzes", quiz?.id, "attempt"],
         onSuccess: (response) => {
             console.log(response);
-            navigate(`/result/${quiz.id}`);
+            navigate(`/result/${quiz.id}`, { replace: true });
         },
     });
 
@@ -62,6 +67,8 @@ const Quiz = ({ quiz, showingIndex, setShowingIndex, answers, setAnswers }) => {
     function onCancel() {
         setShowPopup(false);
     }
+
+    console.log(`getting aswers`, answers);
 
     return (
         <div className='bg-white p-6 !pb-2 rounded-md'>
@@ -90,59 +97,49 @@ const Quiz = ({ quiz, showingIndex, setShowingIndex, answers, setAnswers }) => {
                 </h3>
             </div>
             <div className='grid grid-cols-2 gap-4'>
-                {currentQuestion?.options.map((option, index) => (
-                    <label
-                        key={index}
-                        className='flex items-center space-x-3 py-3 px-4 bg-primary/5 rounded-md text-lg'>
-                        <input
-                            onChange={(e) => {
-                                setAnswers((prevAnswers) => {
-                                    // Get the existing answers for this question or initialize as an empty string
-                                    const existingAnswers =
-                                        prevAnswers[currentQuestion?.id] || "";
-
-                                    // If checked, add the answer; if unchecked, remove it
-                                    if (e.target.checked) {
-                                        return {
-                                            ...prevAnswers,
-                                            [currentQuestion?.id]:
-                                                existingAnswers
-                                                    ? `${existingAnswers}, ${option}` //add new answer as a comma separaed string if existing answers present
-                                                    : option, // Initialize with this option if no previous answers
-                                        };
-                                    } else {
-                                        // Remove the answer when unchecked
-                                        const updatedAnswers = existingAnswers
-                                            .split(", ")
-                                            .filter((ans) => ans !== option)
-                                            .join(", ");
-                                        return {
-                                            ...prevAnswers,
-                                            [currentQuestion?.id]:
-                                                updatedAnswers,
-                                        };
-                                    }
-                                });
-                            }}
-                            type='checkbox'
-                            name={currentQuestion?.id}
-                            className='form-radio text-buzzr-purple'
-                            checked={
-                                answers[currentQuestion?.id]
-                                    ?.split(", ")
-                                    .includes(option) || false
-                            }
-                        />
-                        <span>{option}</span>
-                    </label>
-                ))}
+                {currentQuestion?.options
+                    .sort(() => Math.random() - 0.9)
+                    .map((option, index) => (
+                        <label
+                            key={index}
+                            className='flex items-center space-x-3 py-3 px-4 bg-primary/5 rounded-md text-lg'>
+                            <input
+                                onChange={(e) => {
+                                    setAnswers((prevAnswers) => {
+                                        // If checked, add the answer; if unchecked, remove it
+                                        if (e.target.checked) {
+                                            return {
+                                                ...prevAnswers,
+                                                [currentQuestion?.id]: option,
+                                            };
+                                        } else {
+                                            // Remove the answer when unchecked
+                                            const updatedData = { ...answers };
+                                            delete updatedData[
+                                                currentQuestion.id
+                                            ];
+                                            return updatedData;
+                                        }
+                                    });
+                                }}
+                                type='checkbox'
+                                name={currentQuestion?.id}
+                                className='form-radio text-buzzr-purple'
+                                checked={answers[currentQuestion.id] === option}
+                            />
+                            <span>{option}</span>
+                        </label>
+                    ))}
             </div>
             <p className='text-gray-500 text-sm mt-5'>
                 ℹ️ Only one correct option, if you select more than one, it will
                 be counted as wrong.
             </p>
+            {alert.status && <Alert text={alert.text} setState={setAlert} />}
 
+            {/*   buttons for navigate between quizes */}
             <div className='flex items-center w-full'>
+                {/*  Previous button to navigate previous Quiz */}
                 {showingIndex > 0 && (
                     <button
                         onClick={() => {
@@ -153,11 +150,23 @@ const Quiz = ({ quiz, showingIndex, setShowingIndex, answers, setAnswers }) => {
                         <ArrowLeft /> Previous
                     </button>
                 )}
+
                 <div className='flex ml-auto'>
+                    {/*  Next button to navigate Next Quiz */}
                     {showingIndex + 1 < quiz?.questions?.length && (
                         <button
                             onClick={() => {
-                                setShowingIndex(showingIndex + 1);
+                                if (
+                                    currentQuestion.id in answers &&
+                                    answers[currentQuestion.id] !== ""
+                                ) {
+                                    setShowingIndex(showingIndex + 1);
+                                } else {
+                                    setAlert({
+                                        status: true,
+                                        text: "You have to answer this question before go to next question ",
+                                    });
+                                }
                             }}
                             disabled={
                                 showingIndex + 1 === quiz?.questions?.length
@@ -166,9 +175,23 @@ const Quiz = ({ quiz, showingIndex, setShowingIndex, answers, setAnswers }) => {
                             Next <ArrowRight />
                         </button>
                     )}
+
+                    {/*  submit button to Submit all answers */}
                     {showingIndex + 1 === quiz?.questions?.length && (
                         <button
-                            onClick={() => setShowPopup(true)}
+                            onClick={() => {
+                                if (
+                                    currentQuestion.id in answers &&
+                                    answers[currentQuestion.id] !== ""
+                                ) {
+                                    setShowPopup(true);
+                                } else {
+                                    setAlert({
+                                        status: true,
+                                        text: "You have to answer all the questions before submit",
+                                    });
+                                }
+                            }}
                             className='pagination-button flex gap-2 w-[140px]'>
                             <Save /> Submit
                         </button>
