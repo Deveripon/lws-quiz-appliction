@@ -3,9 +3,9 @@ import QuizActions from "../admin-panel/QuizActions";
 const QuizWithAnswer = ({ children }) => {
     return (
         <div className='rounded-lg border border-gray-200 overflow-hidden shadow-sm mb-4'>
-            <div className='bg-white p-6 !pb-2'>
+            <div className='bg-white p-6 md:w-[450px] lg:w-[600px] !pb-2'>
                 <div className='flex justify-between items-center mb-4'>
-                    <h3 className='text-lg font-semibold'>
+                    <h3 className='text-lg text-wrap lg:w-[400px] xl:w-[550px] font-semibold'>
                         1. Which of the following is NOT a binary tree traversal
                         method?
                     </h3>

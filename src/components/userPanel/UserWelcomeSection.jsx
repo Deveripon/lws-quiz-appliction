@@ -1,6 +1,8 @@
 import defaultAvatar from "../../assets/avater.webp";
+import useAuth from "../../hooks/useAuth";
 
 const UserWelcomeSection = () => {
+    const { auth } = useAuth();
     return (
         <div className='text-center mb-12'>
             <img
@@ -12,7 +14,7 @@ const UserWelcomeSection = () => {
             <h2
                 className='text-4xl font-bold text-gray-700'
                 style={{ fontFamily: "Jaro" }}>
-                Saad Hasan
+                {auth.user.full_name}
             </h2>
         </div>
     );

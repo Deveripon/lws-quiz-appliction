@@ -25,20 +25,18 @@ const router = createBrowserRouter(
             <Route path='*' element={<NotFoundPage />} />
             {/*role based routing : User
             below routes use a layout for user's pages */}
-            <Route
-                path='/'
-                errorElement={<ErrorPage />}
-                element={<UsersPageLayout />}>
-                <Route index element={<HomePage />} />
-
+            <Route element={<UsersPageLayout />} errorElement={<ErrorPage />}>
+                <Route path='/' element={<HomePage />} />
                 <Route element={<PrivateRoute />}>
-                    <Route path='/quiz/:quizsetId' element={<QuizPage />} />
+                    <Route path='/quizzes/:quizsetId' element={<QuizPage />} />
                     <Route
                         path='/leaderboard/:quizsetId'
                         element={<LeaderBoardPage />}
                     />
                 </Route>
             </Route>
+
+            {/*   this route need to be protected but not to use Users Page Layout */}
 
             <Route element={<PrivateRoute />}>
                 <Route path='/result/:quizsetId' element={<ResultPage />} />
@@ -55,6 +53,7 @@ const router = createBrowserRouter(
                 errorElement={<ErrorPage />}
                 element={<RegistrationPage />}
             />
+
             {/* role based routing : Admin */}
             {/*below routes use a layout for admin's pages */}
             <Route

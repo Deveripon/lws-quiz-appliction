@@ -1,4 +1,11 @@
+import { Navigate } from "react-router-dom";
+import useAuth from "../../../hooks/useAuth";
+
 const RegistrationForm = () => {
+    const { auth } = useAuth();
+    if (auth.accessToken) {
+        return <Navigate to='/' />;
+    }
     return (
         <form className=''>
             <div className=''>

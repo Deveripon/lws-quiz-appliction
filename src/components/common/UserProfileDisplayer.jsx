@@ -1,6 +1,11 @@
 import defaultAvater from "../../assets/avater.webp";
+import useAuth from "../../hooks/useAuth";
+import cn from "../../utils/cn";
 
-const UserProfileDisplayer = () => {
+const UserProfileDisplayer = ({ textColor }) => {
+    const { auth } = useAuth();
+    console.log(auth);
+
     return (
         <div className='mt-auto flex items-center'>
             <img
@@ -8,7 +13,10 @@ const UserProfileDisplayer = () => {
                 alt='Mr Hasan'
                 className='w-10 h-10 rounded-full mr-3 object-cover'
             />
-            <span className='text-white font-semibold'>Saad Hasan</span>
+
+            <span className={cn(`text-white font-semibold`, textColor)}>
+                {auth?.user?.full_name}
+            </span>
         </div>
     );
 };

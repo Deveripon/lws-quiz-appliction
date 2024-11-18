@@ -1,9 +1,7 @@
-
-
 const Footer = () => {
     return (
         <footer className='mt-6 mb-3 opacity-40 text-center'>
-            Copyright © 2024 Learn With Sumit | All Rights Reserved
+            Copyright &copy; 2024 Learn With Sumit | All Rights Reserved
         </footer>
     );
 };

@@ -1,15 +1,16 @@
-import { Helmet } from "react-helmet";
 import RegistrationPageInfo from "./components/RegistrationPageInfo";
 import Logo from "../../components/userPanel/Logo";
 import RegistrationForm from "./forms/RegistrationForm";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
+import useAuth from "../../hooks/useAuth";
 
 const RegistrationPage = () => {
+    const { auth } = useAuth();
+    if (auth.accessToken) {
+        return <Navigate to='/' />;
+    }
     return (
         <div className='bg-white text-gray-800 '>
-            <Helmet>
-                <title>Quizzes - Register New User</title>
-            </Helmet>
             <div className='flex min-h-screen max-h-screen'>
                 <RegistrationPageInfo />
                 <div className='fixed right-0 top-0 w-full h-full lg:w-1/2 flex items-start xl:items-center justify-center p-6 lg:p-8 xl:p-12 overflow-y-auto xl:overflow-hidden'>
