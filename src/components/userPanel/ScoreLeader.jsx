@@ -1,7 +1,7 @@
 import defaultAvatar from "../../assets/avater.webp";
 import cn from "../../utils/cn";
 
-const ScoreLeader = ({ highlight }) => {
+const ScoreLeader = ({ highlight, leader }) => {
     return (
         <li
             className={cn(
@@ -16,12 +16,12 @@ const ScoreLeader = ({ highlight }) => {
                     className='object-cover w-10 h-10 rounded-full mr-4'
                 />
                 <div>
-                    <h3 className='font-semibold'>SPD Smith</h3>
-                    <p className='text-sm text-gray-500'>1st</p>
+                    <h3 className='font-semibold'>{leader.full_name}</h3>
+                    <p className='text-sm text-gray-500'>{leader.position}</p>
                 </div>
             </div>
             <div className='flex items-center'>
-                <span className='mr-2'>2,340</span>
+                <span className='mr-2'>{leader.score}</span>
             </div>
         </li>
     );

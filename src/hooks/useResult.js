@@ -51,6 +51,39 @@ const useResult = (data) => {
         (sum, obj) => sum + obj.marks,
         0
     );
+
+    //get all users score
+    const leaderboard =
+        data?.attempts &&
+        data?.attempts.map((attempt) => {
+            let totalScore = 0;
+
+            attempt.correct_answers.forEach((correctAnswer) => {
+                const submittedAnswer = attempt.submitted_answers.find(
+                    (ans) => ans.question_id === correctAnswer.question_id
+                );
+                if (
+                    submittedAnswer &&
+                    submittedAnswer.answer === correctAnswer.answer
+                ) {
+                    totalScore += correctAnswer.marks;
+                }
+            });
+
+            return {
+                userId: attempt.user.id,
+                full_name: attempt.user.full_name,
+                email: attempt.user.email,
+                score: totalScore,
+            };
+        });
+
+    leaderboard && leaderboard.sort((a, b) => b.score - a.score);
+    leaderboard &&
+        leaderboard.forEach((item, index) => {
+            item.position = index + 1;
+        });
+
     return {
         mySubmittedAnswers,
         correctAnswers,
@@ -59,6 +92,7 @@ const useResult = (data) => {
         totalCorrectMarks,
         totalIncorrectMarks,
         getRightAndWrongAnswers,
+        leaderboard,
     };
 };
 
