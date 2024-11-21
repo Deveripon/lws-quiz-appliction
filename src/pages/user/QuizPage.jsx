@@ -7,7 +7,7 @@ import { useState } from "react";
 import ErrorComponent from "../../components/common/ErrorComponent";
 import useUsersApiHandlers from "../../hooks/useUsersApiHandlers";
 import PageTitle from "../../components/common/PageTitle";
-import QuizPageSkeliton from "../../components/skelitons/quizPageSkeliton";
+import QuizPageSkeliton from "../../components/skelitons/QuizCardSkeliton";
 
 const QuizPage = () => {
     const { pathname } = useLocation();
