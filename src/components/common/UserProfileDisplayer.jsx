@@ -4,7 +4,6 @@ import cn from "../../utils/cn";
 
 const UserProfileDisplayer = ({ textColor }) => {
     const { auth } = useAuth();
-    console.log(auth);
 
     return (
         <div className='mt-auto flex items-center'>

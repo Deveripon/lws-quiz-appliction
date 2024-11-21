@@ -23,7 +23,6 @@ const LoginForm = () => {
         mutationFn: login,
         mutationKey: ["auth/login"],
         onSuccess: (response) => {
-            console.log("Login successful", response);
             const { data } = response;
             localStorage.setItem(
                 "auth",
@@ -33,7 +32,6 @@ const LoginForm = () => {
                     refreshToken: data.tokens?.refreshToken,
                 })
             );
-            console.log(`login time access token ${data.tokens?.accessToken}`);
 
             setAuth({
                 user: data.user,
@@ -52,13 +50,15 @@ const LoginForm = () => {
 
     //submit login form and make api call
     function handleFormSubmission(formData) {
-        
         mutate(formData);
     }
 
     return (
         <form onSubmit={handleSubmit(handleFormSubmission)}>
-            <InputField label='Enter your Email' error={errors?.email}>
+            <InputField
+                htmlFor='email'
+                label='Enter your Email'
+                error={errors?.email}>
                 <input
                     {...register("email", {
                         required: "Email is required*",
@@ -67,7 +67,7 @@ const LoginForm = () => {
                             message: "Invalid email address",
                         },
                     })}
-                    type='text'
+                    type='email'
                     id='email'
                     name='email'
                     className={cn(

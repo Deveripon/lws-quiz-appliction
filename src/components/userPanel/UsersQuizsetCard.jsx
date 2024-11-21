@@ -3,37 +3,20 @@ import { useNavigate } from "react-router-dom";
 import { getImgURL } from "../../utils";
 import useAuth from "../../hooks/useAuth";
 import { useQuery } from "@tanstack/react-query";
-import { server_base_url } from "../../../constant";
-import useAxios from "../../hooks/useAxios";
 import useResult from "../../hooks/useResult";
+import useUsersApiHandlers from "../../hooks/useUsersApiHandlers";
 
 const bgImage = [1, 2, 3, 4, 5, 6, 7, 8];
 
 // get dynamic image url
 const UsersQuizsetCard = ({ quizSet }) => {
     const { auth } = useAuth();
-    const { api } = useAxios();
+
     const [image] = useState(
         bgImage[Math.floor(Math.random() * bgImage.length)]
     );
     const navigate = useNavigate();
-
-    //get quiz atttempts to calculate logic
-    const getAttempts = async ({ queryKey }) => {
-        try {
-            const response = await api.get(
-                `${server_base_url}/quizzes/${queryKey[1]}/attempts`
-            );
-            if (response.status === 200) {
-                return response.data;
-            } else {
-                throw new Error("There was an error while fatching result");
-            }
-        } catch (error) {
-            console.log(error);
-            throw new Error(error);
-        }
-    };
+    const { getAttempts } = useUsersApiHandlers();
 
     //attempt query
     const { isLoading, data, error } = useQuery({
@@ -45,7 +28,7 @@ const UsersQuizsetCard = ({ quizSet }) => {
     const allAttempts = data?.data?.attempts;
     const isIattempted =
         allAttempts &&
-        allAttempts.find((attemped) => attemped.user.id === auth.user.id);
+        allAttempts.find((attemped) => attemped?.user?.id === auth?.user?.id);
 
     //get users result on this quiz
     const { totalCorrectMarks } = useResult(data?.data);

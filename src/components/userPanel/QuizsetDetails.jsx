@@ -1,8 +1,6 @@
 import UserProfileDisplayer from "../common/UserProfileDisplayer";
 const QuizsetDetails = ({ quizset, answers }) => {
     const totalAnswers = Object.keys(answers).length;
-    console.log(`total answers`, totalAnswers);
-
     return (
         <div className='lg:col-span-1 bg-white rounded-md p-6 h-full flex flex-col'>
             <div>

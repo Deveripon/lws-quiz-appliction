@@ -3,6 +3,7 @@ import LoginPageInfo from "./components/LoginPageInfo";
 import Logo from "../../components/userPanel/Logo";
 import LoginForm from "./forms/LoginForm";
 import useAuth from "../../hooks/useAuth";
+import PageTitle from "../../components/common/PageTitle";
 
 const LoginPage = () => {
     const { auth } = useAuth();
@@ -11,6 +12,7 @@ const LoginPage = () => {
     }
     return (
         <div className='bg-white text-gray-800 overflow-hidden'>
+            <PageTitle title='Quizzes - Login' />
             <div className='flex min-h-screen'>
                 <LoginPageInfo />
                 <div className='w-full lg:w-1/2 flex items-center justify-center p-12'>

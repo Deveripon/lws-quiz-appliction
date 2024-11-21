@@ -60,16 +60,39 @@ const router = createBrowserRouter(
                 errorElement={<ErrorPage />}
                 path='/admin'
                 element={<AdminPageLayout />}>
-                <Route path='/admin/dashboard' element={<DashboardPage />} />
-                <Route path='/admin/quizset/add' element={<QuizSetAddPage />} />
                 <Route
-                    path='/admin/quizset/:quizsetId'
+                    path='/admin/dashboard/quizzes'
+                    element={<DashboardPage />}
+                />
+                <Route
+                    path='/admin/dashboard/quizzes/add'
+                    element={<QuizSetAddPage />}
+                />
+                <Route
+                    path='/admin/dashboard/quizzes/:quizsetId'
                     element={<QuizEntryPage />}
                 />
             </Route>
         </>
-    )
+    ),
+    {
+        future: {
+            v7_skipActionStatusRevalidation: true,
+            v7_fetcherPersist: true,
+            v7_partialHydration: true,
+            v7_normalizeFormMethod: true,
+            v7_relativeSplatPath: true,
+            v7_skipActionErrorRevalidation: true,
+        },
+    }
 );
 
-const Routes = () => <RouterProvider router={router} />;
+const Routes = () => (
+    <RouterProvider
+        router={router}
+        future={{
+            v7_startTransition: true,
+        }}
+    />
+);
 export default Routes;

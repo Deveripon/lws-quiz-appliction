@@ -1,10 +1,53 @@
-const QuizActions = () => {
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import useAdminApiHandlers from "../../hooks/useAdminApiHandlers";
+import { createPortal } from "react-dom";
+import ConfirmationPopup from "../common/ConfirmationPopup";
+import { useState } from "react";
+
+const QuizActions = ({ handleDataToEdit, question }) => {
+    const [isShow, setIsShow] = useState(false);
+    const queryClient = useQueryClient();
+    const { deleteQuestion } = useAdminApiHandlers();
+
+    // mutation to delete question
+    const { mutate } = useMutation({
+        mutationFn: (questionId) => deleteQuestion(questionId),
+        onSuccess: () => {
+            queryClient.invalidateQueries(["admin", "quizzes"]);
+        },
+    });
+
+    // handle delete confirm
+    function onConfirm() {
+        mutate(question?.id);
+    }
+
+    // handle delete cofirm cancel
+    function onCancel() {
+        setIsShow(false);
+        return false;
+    }
+
     return (
-        <div className='flex space-x-4 bg-primary/10 px-6 py-2'>
-            <button className='text-red-600 hover:text-red-800 font-medium'>
+        <div className='flex space-x-4 bg-primary/10 px-6 py-2 min-h-[40px]'>
+            {isShow &&
+                createPortal(
+                    <ConfirmationPopup
+                        onCancel={onCancel}
+                        onConfirm={onConfirm}>
+                        Are You Sure, you going to delete this question. This
+                        process can not be undone.
+                    </ConfirmationPopup>,
+                    document.body
+                )}
+            <button
+                onClick={() => setIsShow(true)}
+                className='text-red-600 hover:text-red-800 font-medium'>
                 Delete
             </button>
-            <button className='text-primary hover:text-primary/80 font-medium'>
+            <button
+                onClick={() => handleDataToEdit(question)}
+                className='text-primary hover:text-primary/60 duration-200 font-medium'>
                 Edit Question
             </button>
         </div>

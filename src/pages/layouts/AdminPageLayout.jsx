@@ -10,7 +10,7 @@ const AdminPageLayout = () => {
         return <Navigate to='/' />;
     } else {
         if (location?.pathname === "/admin") {
-            return <Navigate to='/admin/dashboard' />;
+            return <Navigate to='/admin/dashboard/quizzes' />;
         }
     }
     return (

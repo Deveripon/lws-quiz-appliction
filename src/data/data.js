@@ -2,7 +2,7 @@ export const adminDashboardNavItems = [
     {
         id: "nav_1",
         title: "Quizzes",
-        path: "/admin/dashboard",
+        path: "/admin/dashboard/quizzes",
     },
     {
         id: "nav_2",

@@ -3,7 +3,7 @@ import PlusIcon from "../../svg/PlusIcon";
 
 const CreateNewQuizButton = () => {
     return (
-        <Link to='/admin/quizset/add' className='group'>
+        <Link to='/admin/dashboard/quizzes/add' className='group'>
             <div className='bg-white p-6 rounded-lg shadow-sm border border-gray-200 '>
                 <div className='text-buzzr-purple mb-4 group-hover:scale-105 transition-all'>
                     <PlusIcon />

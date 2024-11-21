@@ -1,13 +1,16 @@
-import { NavLink } from "react-router-dom";
+import { Link, NavLink, useLocation } from "react-router-dom";
 import { adminDashboardNavItems } from "../../data/data";
-import UserProfileDisplayer from "../common/UserProfileDisplayer";
 import LogoWhite from "./LogoWhite";
+import AvatarWithDropdown from "../common/AvatarWithDropdown";
 
 const Sidebar = () => {
+    const { pathname } = useLocation();
     return (
-        <aside className='w-64 bg-primary p-6 flex flex-col'>
+        <aside className='min-w-64 bg-primary p-6 flex flex-col'>
             <div className='mb-10'>
-                <LogoWhite />
+                <Link to='/admin/dashboard/quizzes'>
+                    <LogoWhite />
+                </Link>
             </div>
             <nav className='flex-grow'>
                 <ul className='space-y-2'>
@@ -16,8 +19,10 @@ const Sidebar = () => {
                             <li key={item.id}>
                                 <NavLink
                                     to={item.path}
-                                    className={({ isActive }) =>
-                                        isActive
+                                    className={
+                                        pathname.includes(
+                                            item.title.toLowerCase()
+                                        )
                                             ? "block py-2 px-4 rounded-lg bg-buzzr-purple bg-white text-primary font-bold"
                                             : "block py-2 px-4 rounded-lg text-gray-100 hover:bg-gray-100 hover:text-primary"
                                     }>
@@ -27,7 +32,7 @@ const Sidebar = () => {
                         ))}
                 </ul>
             </nav>
-            <UserProfileDisplayer />
+            <AvatarWithDropdown showName={true} placeLocation='dashboard' />
         </aside>
     );
 };

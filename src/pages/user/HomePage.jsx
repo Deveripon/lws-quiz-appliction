@@ -3,31 +3,15 @@ import QuizListSection from "../../components/userPanel/QuizListSection";
 import UsersQuizsetCard from "../../components/userPanel/UsersQuizsetCard";
 import UserWelcomeSection from "../../components/userPanel/UserWelcomeSection";
 import useAuth from "../../hooks/useAuth";
-import { getQuizsetList } from "../../api/public";
 import QuizCardSkeleton from "../../components/skelitons/QuizCardSkeliton";
 import ErrorComponent from "../../components/common/ErrorComponent";
-import { server_base_url } from "../../../constant";
-import useAxios from "../../hooks/useAxios";
+import useUsersApiHandlers from "../../hooks/useUsersApiHandlers";
+import PageTitle from "../../components/common/PageTitle";
 
 const HomePage = () => {
     const { auth } = useAuth();
-    const { api } = useAxios();
 
-    //Get quiz set list query function
-    const getQuizsetList = async () => {
-        try {
-            const response = await api.get(`${server_base_url}/quizzes`);
-            if (response.status === 200) {
-                return response.data;
-            } else {
-                throw new Error(
-                    "There was an error while fatching quizset list"
-                );
-            }
-        } catch (error) {
-            throw new Error(error);
-        }
-    };
+    const { getQuizsetList } = useUsersApiHandlers();
 
     //get quiz list by React Query
     const { isLoading, data, error } = useQuery({
@@ -38,6 +22,7 @@ const HomePage = () => {
 
     return (
         <>
+            <PageTitle title='Quizzes - Home' />
             {auth?.user && <UserWelcomeSection />}
             <main className='bg-white p-6 rounded-md h-full'>
                 <section>

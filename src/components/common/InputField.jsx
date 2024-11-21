@@ -1,7 +1,14 @@
 import React from "react";
 import cn from "../../utils/cn";
 
-const InputField = ({ children, htmlFor, label, error, className }) => {
+const InputField = ({
+    children,
+    htmlFor,
+    label,
+    error,
+    className,
+    labelClass,
+}) => {
     //dynamicaly get id from children
     function getChildrenId(children) {
         const child = React.Children.only(children);
@@ -14,7 +21,7 @@ const InputField = ({ children, htmlFor, label, error, className }) => {
     return (
         <div className={cn(`${className} mb-4`)}>
             {label && (
-                <label htmlFor={id} className='block mb-2'>
+                <label htmlFor={id} className={cn(`block mb-2`, labelClass)}>
                     {label}
                 </label>
             )}

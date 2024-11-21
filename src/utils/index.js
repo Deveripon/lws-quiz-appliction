@@ -2,30 +2,42 @@ export const getImgURL = (fileName) => {
     return new URL(`../assets/backgrounds/${fileName}`, import.meta.url).href;
 };
 
-export const getRightAndWrongAnswers = (correctAnswers, submittedAnswers) => {
-    const correct = [];
-    const incorrect = [];
+// get color based on result to show circuler progress bar in differnt result
+export const getStrockColor = (value) => {
+    let color;
+    if (value >= 0 && value <= 33) {
+        color = "#EA2027";
+    } else if (value >= 34 && value <= 50) {
+        color = "#EB8317";
+    } else if (value >= 51 && value <= 70) {
+        color = "#7bed9f";
+    } else if (value >= 71 && value <= 100) {
+        color = "#06D001";
+    } else {
+        color = "#EA2027";
+    }
+    return color;
+};
 
-    submittedAnswers.map((submittedAns) => {
-        const correctAnswer = correctAnswers.find(
-            (correct) => correct.question_id === submittedAns.question_id
-        );
-
-        if (correctAnswer) {
-            if (correctAnswer.answer === submittedAns.answer) {
-                correct.push({ ...submittedAns, marks: correctAnswer.marks });
-            } else {
-                incorrect.push({ ...submittedAns, marks: correctAnswer.marks });
-            }
+//get sorted quizlist
+export const getSortedQuizList = (data) => {
+    data.sort((a, b) => {
+        if (a.status === "published" && b.status !== "published") {
+            return -1;
         }
+        if (a.status !== "published" && b.status === "published") {
+            return 1;
+        }
+        return 0;
+    });
+    return data;
+};
+
+//get sorted question list
+export const getSortedQuestions = (data) => {
+    data.sort((a, b) => {
+        return new Date(b.updatedAt) - new Date(a.updatedAt);
     });
 
-    // Calculate total marks
-    const totalCorrectMarks = correct.reduce((sum, obj) => sum + obj.marks, 0);
-    const totalIncorrectMarks = incorrect.reduce(
-        (sum, obj) => sum + obj.marks,
-        0
-    );
-
-    return { correct, incorrect, totalCorrectMarks, totalIncorrectMarks };
+    return data;
 };

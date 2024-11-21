@@ -1,17 +1,47 @@
+import { useQuery } from "@tanstack/react-query";
 import AdminsQuizsetCard from "../../components/admin-panel/AdminsQuizsetCard";
 import CreateNewQuizButton from "../../components/admin-panel/CreateNewQuizButton";
 import Greetings from "../../components/admin-panel/Greetings";
 import QuizsetList from "../../components/admin-panel/QuizsetList";
+import useAdminApiHandlers from "../../hooks/useAdminApiHandlers";
+import QuizSkelitonCardAdmin from "../../components/skelitons/QuizSkelitonCardAdmin";
+import ErrorComponent from "../../components/common/ErrorComponent";
+import { getSortedQuizList } from "../../utils";
+import NoData from "../../components/common/NoData";
 
 const DashboardPage = () => {
+    const { getAllQuizSet } = useAdminApiHandlers();
+
+    //fatch all quiz set by react query
+    const { data, isLoading, error } = useQuery({
+        queryFn: getAllQuizSet,
+        queryKey: ["admin", "quizzes"],
+    });
+    console.log(data);
+
     return (
-        <main className='flex-grow p-10'>
+        <main className='flex-grow p-10 overflow-scroll max-h-screen'>
             <Greetings />
             <QuizsetList>
                 <CreateNewQuizButton />
-                <AdminsQuizsetCard />
-                <AdminsQuizsetCard />
-                <AdminsQuizsetCard />
+                {isLoading ? (
+                    <QuizSkelitonCardAdmin />
+                ) : error ? (
+                    <div className='error w-[700px] p-2 bg-gray-200'>
+                        <ErrorComponent />
+                    </div>
+                ) : data && data.length > 0 ? (
+                    getSortedQuizList(data).map((quizCard) => (
+                        <AdminsQuizsetCard
+                            key={quizCard.id}
+                            quizCard={quizCard}
+                        />
+                    ))
+                ) : (
+                    <div className='flex place-content-center'>
+                        <NoData text={`You don't have added ant quiz yet.`} />
+                    </div>
+                )}
             </QuizsetList>
         </main>
     );

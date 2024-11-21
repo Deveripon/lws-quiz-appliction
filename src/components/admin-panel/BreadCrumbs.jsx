@@ -1,12 +1,12 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 const BreadCrumbs = () => {
-    const pathname = "admin/quizset/:quizsetId";
+    const { pathname } = useLocation();
     return (
         <>
-            {pathname === "/quizset/add" && (
+            {pathname === "/admin/dashboard/quizzes/add" && (
                 <Link
-                    to='/admin/dashboard'
+                    to='/admin/dashboard/quizzes/'
                     className='inline-flex items-center text-sm text-gray-600 mb-6 hover:text-buzzr-purple'>
                     <svg
                         className='w-4 h-4 mr-2'
@@ -23,12 +23,12 @@ const BreadCrumbs = () => {
                     Back to home
                 </Link>
             )}
-            {pathname === "admin/quizset/:quizsetId" && (
+            {pathname !== "/admin/dashboard/quizzes/" && (
                 <nav className='text-sm mb-4' aria-label='Breadcrumb'>
                     <ol className='list-none p-0 inline-flex'>
                         <li className='flex items-center'>
                             <Link
-                                to='/admin/dashboard'
+                                to='/admin/dashboard/quizzes/'
                                 className='text-gray-600 hover:text-buzzr-purple'>
                                 Home
                             </Link>

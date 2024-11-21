@@ -1,58 +1,29 @@
+import { useMutation } from "@tanstack/react-query";
 import { useState } from "react";
 import { createPortal } from "react-dom";
 import { ArrowLeft, ArrowRight, Save } from "react-feather";
-import ConfirmationPopup from "../common/ConfirmationPopup";
-import { useMutation } from "@tanstack/react-query";
-import { server_base_url } from "../../../constant";
-import useAxios from "../../hooks/useAxios";
-import useAuth from "../../hooks/useAuth";
 import { useNavigate } from "react-router-dom";
+import useUsersApiHandlers from "../../hooks/useUsersApiHandlers";
 import Alert from "../common/Alert";
+import ConfirmationPopup from "../common/ConfirmationPopup";
 
-const Quiz = ({ quiz, showingIndex, setShowingIndex, answers, setAnswers }) => {
+const Quiz = ({ quiz, answers, setAnswers }) => {
     const [alert, setAlert] = useState({
         status: false,
         text: "",
     });
-    const { api } = useAxios();
+    const [showingIndex, setShowingIndex] = useState(0);
     const [showPopup, setShowPopup] = useState(false);
-    const { auth } = useAuth();
     const currentQuestion = quiz && quiz?.questions[showingIndex];
     const totalAnswer = Object.keys(answers).length;
     const navigate = useNavigate();
 
-    // Submit Quiz mutation function
-    const submitQuizAnswer = async (answers) => {
-        try {
-            const response = await api.post(
-                `${server_base_url}/quizzes/${quiz?.id}/attempt`,
-                { answers },
-                {
-                    headers: {
-                        Authorization: `Bearer ${auth.accessToken}`,
-                    },
-                }
-            );
-            console.log(response);
-
-            if (response.status === 200) {
-                return response.data;
-            } else {
-                throw new Error("There was an error while submitting the quiz");
-            }
-        } catch (error) {
-            console.log(error);
-
-            throw new Error(error);
-        }
-    };
+    const { submitQuizAnswer } = useUsersApiHandlers();
 
     // mutation to submit quiz
     const { mutate, data, isPending } = useMutation({
-        mutationFn: submitQuizAnswer,
-        mutationKey: ["quizzes", quiz?.id, "attempt"],
+        mutationFn: ({ answers, quizId }) => submitQuizAnswer(answers, quizId),
         onSuccess: (response) => {
-            console.log(response);
             navigate(`/result/${quiz.id}`, { replace: true });
         },
     });
@@ -60,7 +31,7 @@ const Quiz = ({ quiz, showingIndex, setShowingIndex, answers, setAnswers }) => {
     // handle submittion confirm
     function onConfirm() {
         setShowPopup(false);
-        mutate(answers);
+        mutate({ answers, quizId: quiz?.id });
     }
 
     // handle submittion cancel
@@ -68,7 +39,7 @@ const Quiz = ({ quiz, showingIndex, setShowingIndex, answers, setAnswers }) => {
         setShowPopup(false);
     }
 
-    console.log(`getting aswers`, answers);
+    const barWidth = ((showingIndex + 1) / quiz?.questions?.length) * 100;
 
     return (
         <div className='bg-white p-6 !pb-2 rounded-md'>
@@ -83,7 +54,7 @@ const Quiz = ({ quiz, showingIndex, setShowingIndex, answers, setAnswers }) => {
                             <span className='font-semibold'>{totalAnswer}</span>{" "}
                             questions out of{" "}
                             <span className='font-semibold'>
-                                {quiz.questions.length}
+                                {quiz?.questions.length}
                             </span>{" "}
                             questions. Once you submitted the quiz, you will not
                             be able to re-submit.
@@ -91,9 +62,21 @@ const Quiz = ({ quiz, showingIndex, setShowingIndex, answers, setAnswers }) => {
                     </ConfirmationPopup>,
                     document.body
                 )}
+
+            {/* question progress bar */}
+            <div className='ques-progress-bar'>
+                <div
+                    className='w-0 outline-none progress-bar transition-transform duration-400 bg-primary h-3  rounded-md'
+                    style={{ width: `${barWidth}%` }}></div>
+                <span>
+                    Showing Question {showingIndex + 1} of{" "}
+                    {quiz?.questions?.length}
+                </span>
+            </div>
+
             <div className='flex justify-between items-center mb-4'>
                 <h3 className='text-2xl font-semibold'>
-                    {showingIndex + 1}. {currentQuestion.question}
+                    {showingIndex + 1}. {currentQuestion?.question}
                 </h3>
             </div>
             <div className='grid grid-cols-2 gap-4'>
@@ -103,6 +86,8 @@ const Quiz = ({ quiz, showingIndex, setShowingIndex, answers, setAnswers }) => {
                         <label
                             key={index}
                             className='flex items-center space-x-3 py-3 px-4 bg-primary/5 rounded-md text-lg'>
+                            {/*   Although it should have feature like select multiple options for better UX, but I follow the assignement and requirement and Instruction from LWS-SUPPORT regarding this issue */}
+
                             <input
                                 onChange={(e) => {
                                     setAnswers((prevAnswers) => {
@@ -136,7 +121,6 @@ const Quiz = ({ quiz, showingIndex, setShowingIndex, answers, setAnswers }) => {
                 be counted as wrong.
             </p>
             {alert.status && <Alert text={alert.text} setState={setAlert} />}
-
             {/*   buttons for navigate between quizes */}
             <div className='flex items-center w-full'>
                 {/*  Previous button to navigate previous Quiz */}
@@ -155,6 +139,8 @@ const Quiz = ({ quiz, showingIndex, setShowingIndex, answers, setAnswers }) => {
                     {/*  Next button to navigate Next Quiz */}
                     {showingIndex + 1 < quiz?.questions?.length && (
                         <button
+                            /*   Although it should have feature like skip any question if user not know the answer of particuler question for better UX, but I follow the assignement and requirement and Instruction from LWS-SUPPORT regarding this issue */
+
                             onClick={() => {
                                 if (
                                     currentQuestion.id in answers &&
@@ -179,6 +165,7 @@ const Quiz = ({ quiz, showingIndex, setShowingIndex, answers, setAnswers }) => {
                     {/*  submit button to Submit all answers */}
                     {showingIndex + 1 === quiz?.questions?.length && (
                         <button
+                            /*   Although it should have feature like submit quiz if user skip any question for better UX, but I follow the assignement and requirement and Instruction from LWS-SUPPORT regarding this issue */
                             onClick={() => {
                                 if (
                                     currentQuestion.id in answers &&
