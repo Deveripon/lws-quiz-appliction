@@ -1,5 +1,6 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import useAdminApiHandlers from "../../hooks/useAdminApiHandlers";
+import toast from "react-hot-toast";
 
 const PublishAction = ({ status, quiz }) => {
     const { updateQuizSet } = useAdminApiHandlers();
@@ -10,7 +11,6 @@ const PublishAction = ({ status, quiz }) => {
         mutationFn: ({ quizSetId, data }) => updateQuizSet(quizSetId, data),
         onSuccess: () => {
             queryClient.invalidateQueries(["admin", "quizzes"]);
-            console.log("quiz status updted");
         },
     });
 

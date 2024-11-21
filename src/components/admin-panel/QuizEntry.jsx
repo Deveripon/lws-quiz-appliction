@@ -1,6 +1,6 @@
 import QuizActions from "./QuizActions";
 
-const QuizEntry = ({ question, index, handleDataToEdit }) => {
+const QuizEntry = ({ quizSet, question, index, handleDataToEdit }) => {
     return (
         <div className='rounded-lg overflow-hidden shadow-sm mb-4'>
             <div className='bg-white p-6 !pb-2'>
@@ -25,6 +25,7 @@ const QuizEntry = ({ question, index, handleDataToEdit }) => {
                 </div>
             </div>
             <QuizActions
+                quizSet={quizSet}
                 handleDataToEdit={handleDataToEdit}
                 question={question}
             />

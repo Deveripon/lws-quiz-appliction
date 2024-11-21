@@ -6,6 +6,7 @@ import useAdminApiHandlers from "../../../hooks/useAdminApiHandlers";
 import { useLocation } from "react-router-dom";
 import { useEffect } from "react";
 import Alert from "../../common/Alert";
+import toast from "react-hot-toast";
 
 const QuizForm = ({ initialData, setDataToEdit }) => {
     const { pathname } = useLocation();
@@ -51,10 +52,14 @@ const QuizForm = ({ initialData, setDataToEdit }) => {
     // use add mutation with with react hook form
     const { addQuestion, updateQuestion } = useAdminApiHandlers();
 
+    // Question add mutation
     const { mutate } = useMutation({
         mutationFn: ({ quizId, data }) => addQuestion(quizId, data),
         onSuccess: () => {
             queryClient.invalidateQueries(["admin", "quizzes"]);
+            toast.success("Question Added to the list", {
+                position: "top-right",
+            });
             reset();
         },
         onError: () => {
@@ -66,7 +71,7 @@ const QuizForm = ({ initialData, setDataToEdit }) => {
         },
     });
 
-    // handle patch or update data with mutation
+    // handle Edit Quiz/ patch or update data with mutation
     const mutation = useMutation({
         mutationFn: ({ editableQuestionId, data }) =>
             updateQuestion(editableQuestionId, data),

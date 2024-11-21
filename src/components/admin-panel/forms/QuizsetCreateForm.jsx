@@ -24,7 +24,7 @@ const QuizsetCreateForm = () => {
             queryClient.invalidateQueries(["quizzes"]);
             navigate(`/admin/dashboard/quizzes/${data?.data?.id}`);
         },
-        onError: (error) => {
+        onError: () => {
             setError("root", {
                 type: "random",
                 message:

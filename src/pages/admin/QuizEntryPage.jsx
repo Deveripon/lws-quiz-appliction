@@ -60,6 +60,7 @@ const QuizEntryPage = () => {
                             getSortedByUpdatedAt(thisQuizData.Questions).map(
                                 (question, index) => (
                                     <QuizEntry
+                                        quizSet={thisQuizData}
                                         key={question.id}
                                         index={index}
                                         question={question}

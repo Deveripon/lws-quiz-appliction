@@ -4,10 +4,10 @@ import { createPortal } from "react-dom";
 import ConfirmationPopup from "../common/ConfirmationPopup";
 import { useState } from "react";
 
-const QuizActions = ({ handleDataToEdit, question }) => {
+const QuizActions = ({ handleDataToEdit, question, quizSet }) => {
     const [isShow, setIsShow] = useState(false);
     const queryClient = useQueryClient();
-    const { deleteQuestion } = useAdminApiHandlers();
+    const { deleteQuestion, updateQuizSet } = useAdminApiHandlers();
 
     // mutation to delete question
     const { mutate } = useMutation({
@@ -17,8 +17,20 @@ const QuizActions = ({ handleDataToEdit, question }) => {
         },
     });
 
+    const { mutate: updateQuiz } = useMutation({
+        mutationFn: ({ quizSetId, data }) => updateQuizSet(quizSetId, data),
+    });
+
     // handle delete confirm
     function onConfirm() {
+        // if this is the last question than change quiz to draft before delete last quiz
+        if (quizSet?.Questions.length === 1) {
+            const quizSetId = quizSet?.id;
+            const data = {
+                status: "draft",
+            };
+            updateQuiz({ quizSetId, data });
+        }
         mutate(question?.id);
     }
 

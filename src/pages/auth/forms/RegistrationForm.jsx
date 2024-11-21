@@ -7,6 +7,7 @@ import Alert from "../../../components/common/Alert";
 import cn from "../../../utils/cn";
 import { useMutation } from "@tanstack/react-query";
 import { registration } from "../../../api/authentication";
+import toast from "react-hot-toast";
 
 const RegistrationForm = () => {
     const { auth } = useAuth();
@@ -25,8 +26,10 @@ const RegistrationForm = () => {
 
     const { mutate } = useMutation({
         mutationFn: (formData) => registration(formData),
-        onSuccess: (response) => {
-            console.log(`registration success`, response);
+        onSuccess: () => {
+            toast.success("Registration Success! Redirected to login page", {
+                position: "top-right",
+            });
             navigate("/login");
         },
         onError: (error) => {
