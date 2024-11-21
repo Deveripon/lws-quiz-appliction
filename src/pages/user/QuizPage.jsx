@@ -3,11 +3,11 @@ import QuizArea from "../../components/userPanel/QuizArea";
 import Quiz from "../../components/userPanel/Quiz";
 import { useLocation } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
-import QuizPageSkeliton from "../../components/skelitons/quizPageSkeliton";
 import { useState } from "react";
 import ErrorComponent from "../../components/common/ErrorComponent";
 import useUsersApiHandlers from "../../hooks/useUsersApiHandlers";
 import PageTitle from "../../components/common/PageTitle";
+import QuizPageSkeliton from "../../components/skelitons/quizPageSkeliton";
 
 const QuizPage = () => {
     const { pathname } = useLocation();
