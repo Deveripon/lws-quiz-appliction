@@ -7,7 +7,7 @@ const Header = () => {
     const { auth } = useAuth();
     const { pathname } = useLocation();
     return (
-        <header className='flex justify-between items-center mb-12 sticky top-4'>
+        <header className='flex justify-between bg-gray-100 py-3 items-center mb-12 sticky z-50 top-[-2px] pt-[20px]'>
             <Link to='/'>
                 <Logo />
             </Link>

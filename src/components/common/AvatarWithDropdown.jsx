@@ -27,16 +27,16 @@ const AvatarWithDropdown = ({ showName = false, nameClass, placeLocation }) => {
                     alt='User Avatar'
                     className='w-full h-full rounded-full object-cover'
                 />
+                {showName && (
+                    <h3
+                        className={cn(
+                            `text-slate-200 absolute top-[11px] left-[50px] font-semibold`,
+                            nameClass
+                        )}>
+                        {auth?.user?.full_name}
+                    </h3>
+                )}
             </button>
-            {showName && (
-                <h3
-                    className={cn(
-                        `text-slate-200 absolute top-[11px] left-[50px] font-semibold`,
-                        nameClass
-                    )}>
-                    {auth?.user?.full_name}
-                </h3>
-            )}
 
             {/* Dropdown */}
             {isShow && (

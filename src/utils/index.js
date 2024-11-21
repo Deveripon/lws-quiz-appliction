@@ -43,3 +43,33 @@ export const getSortedByUpdatedAt = (data) => {
 
     return data;
 };
+
+export const getTopFiveRank = (data) => {
+
+    // Step 1: Sort the students by marks in descending order
+    data.sort((a, b) => b.marks - a.marks);
+
+    let topStudents = [];
+    let currentRank = 0;
+    let lastMarks = null;
+
+    // Step 2: Loop through the sorted array
+    for (let i = 0; i < data.length; i++) {
+        const student = students[i];
+
+        // If the current student's marks are different from the last recorded marks
+        if (student.marks !== lastMarks) {
+            currentRank++; // Increment rank
+            lastMarks = student.marks; // Update the last marks
+        }
+
+        // If rank is within the top 5, include the student
+        if (currentRank <= 5) {
+            topStudents.push(student);
+        } else {
+            break; // Stop as soon as we go beyond the top 5 ranks
+        }
+    }
+
+    console.log("Top Students:", topStudents);
+};

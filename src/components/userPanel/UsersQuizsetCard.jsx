@@ -16,12 +16,15 @@ const UsersQuizsetCard = ({ quizSet }) => {
         bgImage[Math.floor(Math.random() * bgImage.length)]
     );
     const navigate = useNavigate();
+
+    // handle quiz click
     const { getAttempts } = useUsersApiHandlers();
 
-    //attempt query
-    const { isLoading, data, error } = useQuery({
+    //attempt query===============
+    const { data } = useQuery({
         queryFn: getAttempts,
         queryKey: ["quizzes", quizSet.id, "attempts"],
+        enabled: !!auth?.user,
     });
 
     //check that user already attemted this quiz or not
@@ -33,12 +36,17 @@ const UsersQuizsetCard = ({ quizSet }) => {
     //get users result on this quiz
     const { totalCorrectMarks } = useResult(data?.data);
 
-    // handle quiz click
+    //================================================================
+
     function handleClick() {
-        if (!isIattempted) {
-            navigate(`/quizzes/${quizSet.id}`);
+        if (!auth?.accessToken) {
+            navigate("/login");
         } else {
-            navigate(`/result/${quizSet.id}`);
+            if (!isIattempted) {
+                navigate(`/quizzes/${quizSet.id}`);
+            } else {
+                navigate(`/result/${quizSet.id}`);
+            }
         }
     }
 
@@ -60,21 +68,42 @@ const UsersQuizsetCard = ({ quizSet }) => {
                                 <h1 className='text-3xl font-bold'>
                                     Already Participated
                                 </h1>
-                                <p className='text-center'>
+                                <h3 className='text-xl'>
+                                    Total Questions: {quizSet?.total_questions}
+                                </h3>
+                                <h3 className='text-xl '>
+                                    Total Marks: {data?.data?.quiz?.total_marks}
+                                </h3>
+
+                                <p className='text text-xl'>
                                     You got{" "}
                                     {totalCorrectMarks && totalCorrectMarks} out
                                     of {data?.data?.quiz?.total_marks}
                                 </p>
                             </>
                         ) : (
-                            <h1 className='text-3xl font-bold'>
-                                Ready To Take Quiz
-                            </h1>
+                            <>
+                                <h3 className='text-xl'>
+                                    Total Questions: {quizSet?.total_questions}
+                                </h3>
+                                <h3 className='text-xl '>
+                                    Total Marks: {data?.data?.quiz?.total_marks}
+                                </h3>
+                                <h1 className='text-3xl font-bold'>
+                                    Ready To Take Quiz
+                                </h1>
+                            </>
                         )
                     ) : (
-                        <h1 className='text-3xl font-bold'>
-                            Sign in To Take Quiz
-                        </h1>
+                        <>
+                            <h3 className='text-xl '>
+                                Total Questions: {quizSet?.total_questions}
+                            </h3>
+
+                            <h1 className='text-3xl font-bold'>
+                                Sign in To Take Quiz
+                            </h1>
+                        </>
                     )}
                 </div>
             </div>

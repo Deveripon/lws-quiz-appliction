@@ -51,10 +51,11 @@ const LeaderBoardPage = () => {
                         myPosition={myPosition}
                     />
                     <TopFives quiz={data?.data.quiz}>
+                        {/*    */}
                         {leaderboard &&
                             leaderboard
                                 .slice(0, 5)
-                                .map((leader, index) => (
+                                .map((leader) => (
                                     <ScoreLeader
                                         key={leader.userId}
                                         highlight={

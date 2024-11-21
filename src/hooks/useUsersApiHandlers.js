@@ -37,6 +37,7 @@ const useUsersApiHandlers = () => {
                     },
                 }
             );
+
             if (response.status === 200) {
                 return response.data;
             } else {
@@ -58,6 +59,7 @@ const useUsersApiHandlers = () => {
                     },
                 }
             );
+
             if (response.status === 200) {
                 return response.data;
             }

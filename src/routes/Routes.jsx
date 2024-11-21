@@ -60,6 +60,8 @@ const router = createBrowserRouter(
                 errorElement={<ErrorPage />}
                 path='/admin'
                 element={<AdminPageLayout />}>
+                <Route path='*' element={<NotFoundPage />} />
+                <Route path='/admin/dashboard' element={<DashboardPage />} />
                 <Route
                     path='/admin/dashboard/quizzes'
                     element={<DashboardPage />}

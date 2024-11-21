@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import whiteLogoImage from "../../assets/logo-white.svg";
 import ErrorComponent from "../../components/common/ErrorComponent";
 import PageTitle from "../../components/common/PageTitle";
@@ -9,10 +9,14 @@ import ResultDetails from "../../components/userPanel/ResultDetails";
 import ResultSummery from "../../components/userPanel/ResultSummery";
 import useResult from "../../hooks/useResult";
 import useUsersApiHandlers from "../../hooks/useUsersApiHandlers";
+import useAuth from "../../hooks/useAuth";
+import { useEffect } from "react";
 
 const ResultPage = () => {
     const { pathname } = useLocation();
     const quizsetId = pathname.split("/")[2];
+    const { auth } = useAuth();
+    const navigate = useNavigate();
 
     const { getQuizById, getAttempts } = useUsersApiHandlers();
 
@@ -22,6 +26,19 @@ const ResultPage = () => {
         queryKey: ["quizzes", quizsetId, "attempts"],
     });
 
+    //check that user already attemted this quiz or not
+    const allAttempts = data?.data?.attempts;
+    const isIattempted =
+        allAttempts &&
+        allAttempts.find((attemped) => attemped?.user?.id === auth?.user?.id);
+
+    //return the user to home page if he directly hit this url without submitting answer
+    useEffect(() => {
+        if (!isIattempted) {
+            navigate("/", { replace: true });
+        }
+    }, [isIattempted, navigate]);
+
     // get quizset by using react query
     const { data: quizzes, error: questionGetTimeError } = useQuery({
         queryFn: getQuizById,
@@ -29,6 +46,7 @@ const ResultPage = () => {
     });
 
     const questionsList = quizzes?.data?.questions && quizzes?.data?.questions;
+
     //get computed result
     const { mySubmittedAnswers } = useResult(data?.data && data?.data);
 

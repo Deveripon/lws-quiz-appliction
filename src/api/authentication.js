@@ -23,7 +23,6 @@ const registration = async (formData) => {
             `${server_base_url}/auth/register`,
             formData
         );
-        console.log(response);
 
         if (response?.status === 201) {
             return response.data;

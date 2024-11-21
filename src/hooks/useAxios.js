@@ -50,6 +50,8 @@ const useAxios = () => {
                             `${server_base_url}/auth/refresh-token`,
                             { refreshToken }
                         );
+                        //generated new token
+                        console.log(`generated new token`, response);
 
                         const {
                             accessToken: newAccessToken,
@@ -75,7 +77,6 @@ const useAxios = () => {
                     } catch (err) {
                         // if refresh token fail or expired, return user to the login page
                         console.log(`refresh token fails logouting....`);
-
                         localStorage.removeItem("auth");
                         setAuth({});
                         navigate("/login", { replace: true });
