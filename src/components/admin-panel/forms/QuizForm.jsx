@@ -5,6 +5,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import useAdminApiHandlers from "../../../hooks/useAdminApiHandlers";
 import { useLocation } from "react-router-dom";
 import { useEffect } from "react";
+import Alert from "../../common/Alert";
 
 const QuizForm = ({ initialData, setDataToEdit }) => {
     const { pathname } = useLocation();
@@ -24,6 +25,7 @@ const QuizForm = ({ initialData, setDataToEdit }) => {
         watch,
         formState: { errors },
         reset,
+        setError,
     } = useForm({
         defaultValues: {
             question: initialData?.question || "",
@@ -55,8 +57,12 @@ const QuizForm = ({ initialData, setDataToEdit }) => {
             queryClient.invalidateQueries(["admin", "quizzes"]);
             reset();
         },
-        onError: (error) => {
-            console.log(error);
+        onError: () => {
+            setError("root", {
+                type: "random",
+                message:
+                    "Something went wrong!. Please check your internet connection or try again later",
+            });
         },
     });
 
@@ -191,6 +197,8 @@ const QuizForm = ({ initialData, setDataToEdit }) => {
                 className='mt-2 text-primary hover:underline'>
                 Add Option
             </button>
+
+            {errors?.root && <Alert text={errors?.root?.message} />}
 
             {/* Submit Button */}
             <div className='flex gap-12'>

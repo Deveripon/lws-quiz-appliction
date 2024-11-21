@@ -43,7 +43,7 @@ const LoginForm = () => {
         onError: (error) => {
             setError("root", {
                 type: "loginError",
-                message: error.message,
+                message: error.message.split(":")[1],
             });
         },
     });
@@ -94,6 +94,7 @@ const LoginForm = () => {
             </InputField>
 
             {errors?.root && <Alert text={errors?.root?.message} />}
+
             <button
                 type='submit'
                 disabled={isPending}

@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import cn from "../../../utils/cn";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import useAdminApiHandlers from "../../../hooks/useAdminApiHandlers";
+import Alert from "../../common/Alert";
 
 const QuizsetCreateForm = () => {
     const queryClient = useQueryClient();
@@ -13,17 +14,22 @@ const QuizsetCreateForm = () => {
         register,
         formState: { errors },
         handleSubmit,
+        setError,
     } = useForm();
 
     // use Mutation with react query
-    const { mutate } = useMutation({
+    const { mutate, error } = useMutation({
         mutationFn: createQuizSet,
         onSuccess: (data) => {
             queryClient.invalidateQueries(["quizzes"]);
             navigate(`/admin/dashboard/quizzes/${data?.data?.id}`);
         },
         onError: (error) => {
-            console.error(error);
+            setError("root", {
+                type: "random",
+                message:
+                    "Something went wrong! Check your internet connection or try again later",
+            });
         },
     });
 
@@ -87,7 +93,7 @@ const QuizsetCreateForm = () => {
                     defaultValue={""}
                 />
             </InputField>
-
+            {errors?.root && <Alert text={errors?.root?.message} />}
             <button
                 type='submit'
                 className='w-full block text-center bg-primary text-white py-2 px-4 rounded-md hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary'>
