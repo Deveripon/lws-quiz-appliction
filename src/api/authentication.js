@@ -1,4 +1,3 @@
-import axios from "axios";
 import { server_base_url } from "../../constant";
 import { api } from "./axiosInstance";
 
@@ -16,4 +15,26 @@ const login = async (credentials) => {
     }
 };
 
-export { login };
+// handle registration
+
+const registration = async (formData) => {
+    try {
+        const response = await api.post(
+            `${server_base_url}/auth/register`,
+            formData
+        );
+        console.log(response);
+
+        if (response?.status === 201) {
+            return response.data;
+        } else {
+            throw new Error(
+                "There was an Error while register, Please try again later"
+            );
+        }
+    } catch (error) {
+        throw new Error(error);
+    }
+};
+
+export { login, registration };

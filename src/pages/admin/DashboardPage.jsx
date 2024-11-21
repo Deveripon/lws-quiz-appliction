@@ -6,7 +6,7 @@ import QuizsetList from "../../components/admin-panel/QuizsetList";
 import useAdminApiHandlers from "../../hooks/useAdminApiHandlers";
 import QuizSkelitonCardAdmin from "../../components/skelitons/QuizSkelitonCardAdmin";
 import ErrorComponent from "../../components/common/ErrorComponent";
-import { getSortedQuizList } from "../../utils";
+import { getSortedByUpdatedAt, getSortedQuizList } from "../../utils";
 import NoData from "../../components/common/NoData";
 
 const DashboardPage = () => {
@@ -17,13 +17,15 @@ const DashboardPage = () => {
         queryFn: getAllQuizSet,
         queryKey: ["admin", "quizzes"],
     });
-    console.log(data);
+
+    const sortedData = getSortedByUpdatedAt(data);
 
     return (
-        <main className='flex-grow p-10 overflow-scroll max-h-screen'>
+        <main className='flex-grow  p-10 overflow-scroll max-h-screen'>
             <Greetings />
             <QuizsetList>
                 <CreateNewQuizButton />
+
                 {isLoading ? (
                     <QuizSkelitonCardAdmin />
                 ) : error ? (
@@ -31,7 +33,7 @@ const DashboardPage = () => {
                         <ErrorComponent />
                     </div>
                 ) : data && data.length > 0 ? (
-                    getSortedQuizList(data).map((quizCard) => (
+                    getSortedQuizList(sortedData).map((quizCard) => (
                         <AdminsQuizsetCard
                             key={quizCard.id}
                             quizCard={quizCard}

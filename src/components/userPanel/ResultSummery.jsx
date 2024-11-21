@@ -7,7 +7,7 @@ const ResultSummery = ({ data }) => {
         useResult(data);
 
     return (
-        <div className='max-h-screen overflow-hidden lg:flex pt-[100px] lg:pt-0  bg-primary flex-col justify-center p-12 relative'>
+        <div className='max-h-screen flex-1 overflow-hidden lg:flex pt-[100px] lg:pt-0  bg-primary flex-col justify-center p-12 relative'>
             <div>
                 <div className='text-white'>
                     <div>

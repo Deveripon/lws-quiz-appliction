@@ -34,10 +34,12 @@ export const getSortedQuizList = (data) => {
 };
 
 //get sorted question list
-export const getSortedQuestions = (data) => {
-    data.sort((a, b) => {
-        return new Date(b.updatedAt) - new Date(a.updatedAt);
-    });
+export const getSortedByUpdatedAt = (data) => {
+    data &&
+        data.length > 0 &&
+        data.sort((a, b) => {
+            return new Date(b?.updatedAt) - new Date(a?.updatedAt);
+        });
 
     return data;
 };

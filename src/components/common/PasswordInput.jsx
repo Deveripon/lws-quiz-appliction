@@ -4,6 +4,8 @@ import { Eye } from "react-feather";
 import { EyeOff } from "react-feather";
 
 const PasswordInput = ({
+    parentClass,
+    inputClass,
     register,
     errors,
     name = "password",
@@ -12,7 +14,7 @@ const PasswordInput = ({
 }) => {
     const [show, setShow] = useState(false);
     return (
-        <div className='relative'>
+        <div className={cn(`relative`, parentClass)}>
             <input
                 {...register(name, validations)}
                 type={show ? "text" : "password"}
@@ -20,7 +22,8 @@ const PasswordInput = ({
                 id={id}
                 className={cn(
                     `w-full px-4 py-3 rounded-lg border border-gray-300`,
-                    errors?.password && "border-red-500 focus:outline-red-500"
+                    inputClass,
+                    errors?.[name] && "border-red-500 focus:outline-red-500"
                 )}
                 placeholder='Password'
             />

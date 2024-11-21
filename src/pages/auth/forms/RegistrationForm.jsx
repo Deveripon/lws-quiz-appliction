@@ -1,71 +1,169 @@
-import { Navigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import useAuth from "../../../hooks/useAuth";
+import InputField from "../../../components/common/InputField";
+import PasswordInput from "../../../components/common/PasswordInput";
+import { useForm } from "react-hook-form";
+import Alert from "../../../components/common/Alert";
+import cn from "../../../utils/cn";
+import { useMutation } from "@tanstack/react-query";
+import { registration } from "../../../api/authentication";
 
 const RegistrationForm = () => {
     const { auth } = useAuth();
-    if (auth.accessToken) {
-        return <Navigate to='/' />;
+    const navigate = useNavigate();
+    auth.accessToken && <Navigate to='/' />;
+
+    const {
+        register,
+        handleSubmit,
+        watch,
+        setError,
+        formState: { errors },
+    } = useForm();
+
+    // registration mutation
+
+    const { mutate } = useMutation({
+        mutationFn: (formData) => registration(formData),
+        onSuccess: (response) => {
+            console.log(`registration success`, response);
+            navigate("/login");
+        },
+        onError: (error) => {
+            setError("root", {
+                type: "random",
+                message: error.message.includes("AxiosError:")
+                    ? error.message.split(":")[1]
+                    : error.message,
+            });
+        },
+    });
+
+    // function onSubmit handler
+    function onSubmit(formData) {
+        // process form data
+        const data = {
+            full_name: formData.full_name,
+            email: formData.email,
+            password: formData.password,
+            role: formData.admin ? "admin" : "user",
+        };
+        mutate(data);
     }
+
     return (
-        <form className=''>
+        <form onSubmit={handleSubmit(onSubmit)} className=''>
             <div className=''>
-                <div className='mb-4'>
-                    <label htmlFor='name' className='block mb-2'>
-                        Full Name
-                    </label>
+                <InputField
+                    label='Full Name'
+                    htmlFor='full_name'
+                    className='mb-4'
+                    labelClass='block mb-2'
+                    error={errors.full_name}>
                     <input
+                        {...register("full_name", {
+                            required: "Name is Required*",
+                        })}
                         type='text'
-                        id='name'
-                        className='w-full px-4 py-3 rounded-lg border border-gray-300'
+                        id='full_name'
+                        name='full_name'
+                        className={cn(
+                            `w-full px-4 py-3 rounded-lg border border-gray-300`,
+                            errors?.full_name &&
+                                "border-red-500 focus:outline-red-500"
+                        )}
                         placeholder='John Doe'
                     />
-                </div>
-                <div className='mb-4'>
-                    <label htmlFor='email' className='block mb-2'>
-                        Email
-                    </label>
+                </InputField>
+                <InputField
+                    label='Email Address'
+                    htmlFor='email'
+                    className='mb-4'
+                    labelClass='block mb-2'
+                    error={errors.email}>
                     <input
+                        {...register("email", {
+                            required: "Email is required*",
+                            pattern: {
+                                value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                                message: "Please enter a valid email address",
+                            },
+                        })}
                         type='email'
                         id='email'
-                        className='w-full px-4 py-3 rounded-lg border border-gray-300'
+                        className={cn(
+                            `w-full px-4 py-3 rounded-lg border border-gray-300`,
+                            errors?.email &&
+                                "border-red-500 focus:border-red-500"
+                        )}
                         placeholder='Email address'
                     />
-                </div>
+                </InputField>
             </div>
             <div className='flex  gap-4'>
-                <div className='mb-6'>
-                    <label htmlFor='password' className='block mb-2'>
-                        Enter your Password
-                    </label>
-                    <input
-                        type='password'
+                <InputField
+                    parentClass='mb-6'
+                    inputClass='w-full px-4 py-3 rounded-lg border border-gray-300'
+                    labelClass='block mb-2'
+                    htmlFor='password'
+                    label='Enter Your Password'
+                    error={errors.password}>
+                    <PasswordInput
+                        register={register}
+                        errors={errors}
+                        name='password'
                         id='password'
-                        className='w-full px-4 py-3 rounded-lg border border-gray-300'
-                        placeholder='Password'
+                        validations={{
+                            required: "Password field is required",
+                            minLength: {
+                                value: 8,
+                                message:
+                                    "Password must be at least 8 characters long",
+                            },
+                            pattern: {
+                                value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/,
+                                message:
+                                    "Password must contain at least one uppercase letter, one lowercase letter,and one number",
+                            },
+                        }}
                     />
-                </div>
-                <div className='mb-6'>
-                    <label htmlFor='password' className='block mb-2'>
-                        Confirm Password
-                    </label>
-                    <input
-                        type='password'
-                        id='password'
-                        className='w-full px-4 py-3 rounded-lg border border-gray-300'
-                        placeholder='Confirm Password'
+                </InputField>
+
+                <InputField
+                    parentClass='mb-6'
+                    inputClass='w-full px-4 py-3 rounded-lg border border-gray-300'
+                    labelClass='block mb-2'
+                    htmlFor='repassword'
+                    label='Confirm Passworm'
+                    error={errors.repassword}>
+                    <PasswordInput
+                        register={register}
+                        errors={errors}
+                        name='repassword'
+                        id='repassword'
+                        validations={{
+                            required: "Confirm Password field is required",
+                            validate: (value) =>
+                                watch("password") === value ||
+                                "Passwords do not match",
+                        }}
                     />
-                </div>
+                </InputField>
             </div>
+
             <div className='mb-6 flex gap-2 items-center'>
                 <input
+                    {...register("admin")}
                     type='checkbox'
                     id='admin'
+                    name='admin'
                     className='px-4 py-3 rounded-lg border border-gray-300'
                 />
                 <label htmlFor='admin' className='block '>
                     Register as Admin
                 </label>
             </div>
+            {errors?.root && <Alert text={errors?.root?.message} />}
             <button
                 type='submit'
                 className='w-full bg-primary text-white py-3 rounded-lg mb-2'>

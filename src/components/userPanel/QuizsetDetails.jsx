@@ -5,6 +5,7 @@ const QuizsetDetails = ({ quizset, answers }) => {
         <div className='lg:col-span-1 bg-white rounded-md p-6 h-full flex flex-col'>
             <div>
                 <h2 className='text-4xl font-bold mb-4'>{quizset?.title}</h2>
+
                 <p className='text-gray-600 mb-4'>{quizset?.description}</p>
                 <div className='flex flex-col'>
                     <div className='w-fit bg-green-100 text-green-800 text-sm font-medium px-2.5 py-0.5 rounded-full inline-block mb-2'>

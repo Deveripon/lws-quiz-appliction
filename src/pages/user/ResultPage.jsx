@@ -39,9 +39,9 @@ const ResultPage = () => {
             <ErrorComponent />
         </div>
     ) : (
-        <div className='bg-background text-foreground min-h-screen'>
+        <div className='bg-background text-foreground min-h-screen '>
             <PageTitle title={`Quizzes - Result`} />
-            <div className='flex min-h-screen overflow-hidden'>
+            <div className='min-h-screen'>
                 <Link to='/'>
                     <img
                         src={whiteLogoImage}
@@ -49,7 +49,7 @@ const ResultPage = () => {
                     />
                 </Link>
 
-                <div className='flex flex-col lg:flex-row'>
+                <div className='flex flex-col lg:flex-row min-w-screen '>
                     <ResultSummery data={data?.data} />
                     <ResultDetails>
                         {questionGetTimeError ? (

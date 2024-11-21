@@ -50,11 +50,14 @@ const useAdminApiHandlers = () => {
     };
 
     // Update quiz set by Id
-    const updateQuizSet = async (payload, quizSetId) => {
+    const updateQuizSet = async (quizSetId, payload) => {
+        console.log(`data update requested`, payload);
+        console.log(`data update requested`, quizSetId);
+
         try {
             const response = await api.patch(
                 `${server_base_url}/admin/quizzes/${quizSetId}`,
-                { payload },
+                payload,
                 {
                     headers: {
                         Authorization: `Bearer ${auth?.accessToken}`,
@@ -62,6 +65,7 @@ const useAdminApiHandlers = () => {
                 }
             );
             if (response.status === 200) {
+                console.log(response.data);
                 return response.data;
             } else {
                 throw new Error("There was an error while Updating Quiz set");

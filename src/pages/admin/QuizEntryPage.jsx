@@ -9,8 +9,9 @@ import ErrorComponent from "../../components/common/ErrorComponent";
 import QuizForm from "../../components/admin-panel/forms/QuizForm";
 import { useState } from "react";
 import QuizEntry from "../../components/admin-panel/QuizEntry";
-import { getSortedQuestions } from "../../utils";
+import { getSortedByUpdatedAt } from "../../utils";
 import NoData from "../../components/common/NoData";
+import PublishAction from "../../components/admin-panel/PublishAction";
 
 const QuizEntryPage = () => {
     const { pathname } = useLocation();
@@ -49,11 +50,14 @@ const QuizEntryPage = () => {
                             />
                         </div>
                     </div>
-
+                    <PublishAction
+                        status={thisQuizData?.status}
+                        quiz={thisQuizData}
+                    />
                     <QuizEntryList>
                         {thisQuizData?.Questions &&
                         thisQuizData?.Questions.length > 0 ? (
-                            getSortedQuestions(thisQuizData.Questions).map(
+                            getSortedByUpdatedAt(thisQuizData.Questions).map(
                                 (question, index) => (
                                     <QuizEntry
                                         key={question.id}

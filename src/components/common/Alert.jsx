@@ -23,10 +23,11 @@ export default function Alert({ text, setState }) {
                     <button
                         onClick={() => {
                             setShowAlert(false);
-                            setState({
-                                status: false,
-                                text: "",
-                            });
+                            setState &&
+                                setState({
+                                    status: false,
+                                    text: "",
+                                });
                         }}
                         className='ml-4 text-red-600 hover:text-red-800 focus:outline-none'>
                         <svg

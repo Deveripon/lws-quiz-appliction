@@ -43,7 +43,9 @@ const LoginForm = () => {
         onError: (error) => {
             setError("root", {
                 type: "loginError",
-                message: error.message.split(":")[1],
+                message: error.message.includes("AxiosError:")
+                    ? error.message.split(":")[1]
+                    : error.message,
             });
         },
     });
