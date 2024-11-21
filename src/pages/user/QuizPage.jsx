@@ -7,6 +7,7 @@ import { useState } from "react";
 import ErrorComponent from "../../components/common/ErrorComponent";
 import useUsersApiHandlers from "../../hooks/useUsersApiHandlers";
 import PageTitle from "../../components/common/PageTitle";
+import QuizPageSkeliton from "../../components/skelitons/quizPageSkeliton";
 
 const QuizPage = () => {
     const { pathname } = useLocation();
@@ -25,8 +26,7 @@ const QuizPage = () => {
             <PageTitle title={`Quizzes - ${data?.data?.title}`} />
             <main className='max-w-8xl mx-auto lg:h-[calc(100vh-10rem)]'>
                 {isLoading ? (
-                    /*  <QuizPageSkeliton /> */
-                    <h1>Loading....</h1>
+                    <QuizPageSkeliton />
                 ) : error ? (
                     <ErrorComponent />
                 ) : (
