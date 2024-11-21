@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { getImgURL } from "../../utils";
 import useAuth from "../../hooks/useAuth";
 import { useQuery } from "@tanstack/react-query";
@@ -80,6 +80,11 @@ const UsersQuizsetCard = ({ quizSet }) => {
                                     {totalCorrectMarks && totalCorrectMarks} out
                                     of {data?.data?.quiz?.total_marks}
                                 </p>
+                                <Link
+                                    to={`/result/${quizSet.id}`}
+                                    className='text-md'>
+                                    Click to view your leaderboard
+                                </Link>
                             </>
                         ) : (
                             <>

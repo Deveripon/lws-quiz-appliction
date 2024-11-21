@@ -50,8 +50,6 @@ const useAxios = () => {
                             `${server_base_url}/auth/refresh-token`,
                             { refreshToken }
                         );
-                        //generated new token
-                        console.log(`generated new token`, response);
 
                         const {
                             accessToken: newAccessToken,
