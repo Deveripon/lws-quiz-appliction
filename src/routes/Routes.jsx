@@ -18,6 +18,7 @@ import AdminPageLayout from "../pages/layouts/AdminPageLayout";
 import NotFoundPage from "../pages/error/NotFoundPage";
 import ErrorPage from "../pages/error/ErrorPage";
 import PrivateRoute from "./PrivateRoute";
+import MotionTesting from "../pages/admin/MotionTesting";
 
 const router = createBrowserRouter(
     createRoutesFromElements(
@@ -73,6 +74,10 @@ const router = createBrowserRouter(
                 <Route
                     path='/admin/dashboard/quizzes/:quizsetId'
                     element={<QuizEntryPage />}
+                />
+                <Route
+                    path='/admin/dashboard/settings'
+                    element={<MotionTesting />}
                 />
             </Route>
         </>

@@ -4,6 +4,7 @@ import usePopup from "../../hooks/usePopup";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 import cn from "../../utils/cn";
+import { motion } from "motion/react";
 const AvatarWithDropdown = ({ showName = false, nameClass, placeLocation }) => {
     const navigate = useNavigate();
     const { setAuth, auth } = useAuth();
@@ -40,7 +41,12 @@ const AvatarWithDropdown = ({ showName = false, nameClass, placeLocation }) => {
 
             {/* Dropdown */}
             {isShow && (
-                <div
+                <motion.div
+                    animate={{
+                        opacity: [0, 1],
+                        x: [30, 0],
+                        transition: { duration: 0.2 },
+                    }}
                     ref={ref}
                     className={cn(
                         `absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5`,
@@ -76,7 +82,7 @@ const AvatarWithDropdown = ({ showName = false, nameClass, placeLocation }) => {
                             Logout
                         </button>
                     </div>
-                </div>
+                </motion.div>
             )}
         </div>
     );

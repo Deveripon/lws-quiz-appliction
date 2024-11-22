@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { motion } from "motion/react";
 
 export default function Alert({ text, setState }) {
     const [showAlert, setShowAlert] = useState(true);
@@ -6,7 +7,15 @@ export default function Alert({ text, setState }) {
     return (
         <>
             {showAlert && (
-                <div className='flex items-center justify-between p-4 mb-4 text-sm text-red-800 bg-red-100 border border-red-300 rounded-lg'>
+                <motion.div
+                    initial={{
+                        opacity: 0,
+                    }}
+                    animate={{
+                        opacity: 1,
+                        transition: { duration: 0.5 },
+                    }}
+                    className='flex items-center justify-between p-4 mb-4 text-sm text-red-800 bg-red-100 border border-red-300 rounded-lg'>
                     <div className='flex items-center'>
                         <svg
                             className='w-5 h-5 mr-2 text-red-600'
@@ -41,7 +50,7 @@ export default function Alert({ text, setState }) {
                                 clipRule='evenodd'></path>
                         </svg>
                     </button>
-                </div>
+                </motion.div>
             )}
         </>
     );

@@ -23,7 +23,6 @@ const QuizActions = ({ handleDataToEdit, question, quizSet }) => {
             queryClient.invalidateQueries(["admin", "quizzes"]);
         },
     });
-    
 
     // handle delete confirm
     function onConfirm() {

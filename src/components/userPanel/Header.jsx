@@ -2,6 +2,7 @@ import { Link, useLocation } from "react-router-dom";
 import Logo from "../../components/userPanel/Logo";
 import useAuth from "../../hooks/useAuth";
 import AvatarWithDropdown from "../common/AvatarWithDropdown";
+import { motion } from "motion/react";
 
 const Header = () => {
     const { auth } = useAuth();
