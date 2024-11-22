@@ -9,6 +9,7 @@ import ResultDetails from "../../components/userPanel/ResultDetails";
 import ResultSummery from "../../components/userPanel/ResultSummery";
 import useResult from "../../hooks/useResult";
 import useUsersApiHandlers from "../../hooks/useUsersApiHandlers";
+import { useEffect } from "react";
 
 const ResultPage = () => {
     const { pathname } = useLocation();
@@ -35,14 +36,16 @@ const ResultPage = () => {
     //get computed result
     const { mySubmittedAnswers } = useResult(data?.data && data?.data);
 
+    useEffect(() => {
+        !isIattempedted && navigate(`/quizzes/${quizsetId}`);
+    }, [isIattempedted, navigate, quizsetId]);
+
     return isLoading ? (
         <ResultPageSkeliton />
     ) : error ? (
         <div className='!min-h-screen flex justify-center items-center bg-gray-200'>
             <ErrorComponent />
         </div>
-    ) : !isIattempedted ? (
-        navigate(`/quizzes/${quizsetId}`)
     ) : (
         <div className='bg-background text-foreground min-h-screen '>
             <PageTitle title={`Quizzes - Result`} />

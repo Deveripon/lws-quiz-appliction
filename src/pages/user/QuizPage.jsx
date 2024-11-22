@@ -1,9 +1,9 @@
 import QuizsetDetails from "../../components/userPanel/QuizsetDetails";
 import QuizArea from "../../components/userPanel/QuizArea";
 import Quiz from "../../components/userPanel/Quiz";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ErrorComponent from "../../components/common/ErrorComponent";
 import useUsersApiHandlers from "../../hooks/useUsersApiHandlers";
 import PageTitle from "../../components/common/PageTitle";
@@ -14,12 +14,16 @@ const QuizPage = () => {
     const quizsetId = pathname.split("/")[2];
     const [answers, setAnswers] = useState({});
     const { getQuizById } = useUsersApiHandlers();
-
+    const navigate = useNavigate();
     // get quiz by id using react query
     const { isLoading, data, error } = useQuery({
         queryFn: getQuizById,
         queryKey: ["quizzes", quizsetId],
     });
+
+    useEffect(() => {
+        data?.data?.user_attempt?.attempted && navigate(`/result/${quizsetId}`);
+    }, [data?.data?.user_attempt?.attempted, navigate, quizsetId]);
 
     return (
         <>

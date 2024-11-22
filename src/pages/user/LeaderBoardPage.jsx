@@ -10,6 +10,7 @@ import useAuth from "../../hooks/useAuth";
 import useResult from "../../hooks/useResult";
 import useUsersApiHandlers from "../../hooks/useUsersApiHandlers";
 import PageTitle from "../../components/common/PageTitle";
+import { useEffect } from "react";
 
 const LeaderBoardPage = () => {
     const location = useLocation();
@@ -44,12 +45,14 @@ const LeaderBoardPage = () => {
         allAttempts &&
         allAttempts.find((attempt) => attempt?.user?.id === auth?.user?.id);
 
+    useEffect(() => {
+        !isUserAttempts && navigate(`/quizzes/${quizsetId}`);
+    }, [isUserAttempts, navigate, quizsetId]);
+
     return isLoading ? (
         <LeaderBoardPageSkeliton />
     ) : error ? (
         <ErrorComponent />
-    ) : !isUserAttempts ? (
-        navigate(`/quizzes/${quizsetId}`)
     ) : (
         <>
             <PageTitle title={"Qizzes - Leaderboard"} />
