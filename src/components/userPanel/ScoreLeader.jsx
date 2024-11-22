@@ -5,7 +5,7 @@ const ScoreLeader = ({ highlight, leader }) => {
     return (
         <li
             className={cn(
-                `flex items-center justify-between`,
+                `flex items-center justify-between mx-3`,
                 highlight &&
                     " ring-2 ring-purple-600 ring-offset-4 rounded-lg bg-purple-500/50"
             )}>
@@ -17,7 +17,9 @@ const ScoreLeader = ({ highlight, leader }) => {
                 />
                 <div>
                     <h3 className='font-semibold'>{leader.full_name}</h3>
-                    <p className='text-sm text-gray-500'>{leader.position}</p>
+                    <p className='text-sm text-gray-500'>
+                        Rank: {leader.position}
+                    </p>
                 </div>
             </div>
             <div className='flex items-center'>

@@ -8,6 +8,7 @@ import QuizSkelitonCardAdmin from "../../components/skelitons/QuizSkelitonCardAd
 import ErrorComponent from "../../components/common/ErrorComponent";
 import { getSortedByUpdatedAt, getSortedQuizList } from "../../utils";
 import NoData from "../../components/common/NoData";
+import PageTitle from "../../components/common/PageTitle";
 
 const DashboardPage = () => {
     const { getAllQuizSet } = useAdminApiHandlers();
@@ -22,6 +23,7 @@ const DashboardPage = () => {
 
     return (
         <main className='flex-grow  p-10 overflow-scroll max-h-screen'>
+            <PageTitle title='Quizzes - Dashboard' />
             <Greetings />
             <QuizsetList>
                 <CreateNewQuizButton />

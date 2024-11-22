@@ -80,14 +80,25 @@ const useResult = (data) => {
 
     leaderboard && leaderboard.sort((a, b) => b.score - a.score);
     leaderboard &&
-        leaderboard.forEach((item, index) => {
-            let previousScore = 0;
-            if (previousScore !== item.score) {
-                item.position = index + 1;
-            } else if (previousScore === item.score) {
-                item.position = index;
-            }
+        leaderboard?.forEach((item, index) => {
+            item.position = index + 1;
         });
+
+    // adjusting position whom score are same
+    let currentPosition = 0;
+    let previousScore = null;
+    leaderboard?.forEach((user) => {
+        if (user.score !== previousScore) {
+            currentPosition++;
+            previousScore = user.score;
+        }
+        user.position = currentPosition;
+    });
+
+    // Step 2: Filter users up to position 5
+    const topFiveRankHolders = leaderboard?.filter(
+        (user) => user.position <= 5
+    );
 
     return {
         mySubmittedAnswers,
@@ -98,6 +109,7 @@ const useResult = (data) => {
         totalIncorrectMarks,
         getRightAndWrongAnswers,
         leaderboard,
+        topFiveRankHolders,
     };
 };
 
