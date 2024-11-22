@@ -13,8 +13,6 @@ const QuizForm = ({ initialData, setDataToEdit }) => {
     const quizId = pathname.split("/")[4];
     const queryClient = useQueryClient();
     const isEditMode = initialData && initialData.question ? true : false;
-    console.log(`editable data`, initialData);
-    console.log(isEditMode);
     const editableQuestionId = initialData?.id;
 
     // controller part of the Form

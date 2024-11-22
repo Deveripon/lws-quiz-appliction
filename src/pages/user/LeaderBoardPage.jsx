@@ -32,28 +32,28 @@ const LeaderBoardPage = () => {
         leaderboard,
     } = useResult(data?.data && data?.data);
 
-    console.log(`loggedInUser`, auth?.user);
-
-    console.log(`attempted users`, data);
-
     const myPosition =
         leaderboard &&
         leaderboard.find((leader) => leader.userId === auth.user.id);
     const allAttempts = data && data?.data?.attempts;
+
+    console.log(`leaderboard`, leaderboard);
 
     const isUserAttempts =
         allAttempts &&
         allAttempts.find((attempt) => attempt?.user?.id === auth?.user?.id);
 
     //check users action is valid or not
-    useEffect(() => {
+    /*     useEffect(() => {
         !isUserAttempts && navigate(`/quizzes/${quizsetId}`);
     }, [isUserAttempts, navigate, quizsetId]);
-
+ */
     return isLoading ? (
         <LeaderBoardPageSkeliton />
     ) : error ? (
         <ErrorComponent />
+    ) : !isUserAttempts ? (
+        navigate(`/quizzes/${quizsetId}`)
     ) : (
         <>
             <PageTitle title={"Qizzes - Leaderboard"} />

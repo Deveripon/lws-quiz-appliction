@@ -25,7 +25,6 @@ const useAdminApiHandlers = () => {
 
     // create new quiz set
     const createQuizSet = async (formdata) => {
-        console.log(formdata);
         try {
             const response = await api.post(
                 `${server_base_url}/admin/quizzes/`,
@@ -44,16 +43,12 @@ const useAdminApiHandlers = () => {
                 );
             }
         } catch (error) {
-            console.log(error);
-            throw error;
+            throw new Error(error);
         }
     };
 
     // Update quiz set by Id
     const updateQuizSet = async (quizSetId, payload) => {
-        console.log(`data update requested`, payload);
-        console.log(`data update requested`, quizSetId);
-
         try {
             const response = await api.patch(
                 `${server_base_url}/admin/quizzes/${quizSetId}`,
@@ -65,7 +60,6 @@ const useAdminApiHandlers = () => {
                 }
             );
             if (response.status === 200) {
-                console.log(response.data);
                 return response.data;
             } else {
                 throw new Error("There was an error while Updating Quiz set");
@@ -141,8 +135,6 @@ const useAdminApiHandlers = () => {
 
     // Update quiz set by Id
     const updateQuestion = async (questionId, payload) => {
-        console.log(`data sended to update`, payload, questionId);
-
         try {
             const response = await api.patch(
                 `${server_base_url}/admin/questions/${questionId}`,
@@ -153,7 +145,6 @@ const useAdminApiHandlers = () => {
                     },
                 }
             );
-            console.log(`edited response`, response);
 
             if (response.status === 200) {
                 return response.data;
@@ -161,8 +152,6 @@ const useAdminApiHandlers = () => {
                 throw new Error("There was an error while Updating Quiz set");
             }
         } catch (error) {
-            console.log(error);
-
             throw new Error(error);
         }
     };

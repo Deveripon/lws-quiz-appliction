@@ -81,7 +81,12 @@ const useResult = (data) => {
     leaderboard && leaderboard.sort((a, b) => b.score - a.score);
     leaderboard &&
         leaderboard.forEach((item, index) => {
-            item.position = index + 1;
+            let previousScore = 0;
+            if (previousScore !== item.score) {
+                item.position = index + 1;
+            } else if (previousScore === item.score) {
+                item.position = index;
+            }
         });
 
     return {

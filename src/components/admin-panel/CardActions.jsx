@@ -11,7 +11,6 @@ const CardActions = ({ quizCard, setMenuOpen }) => {
         mutationFn: ({ quizSetId, data }) => updateQuizSet(quizSetId, data),
         onSuccess: () => {
             queryClient.invalidateQueries(["admin", "quizzes"]);
-            console.log("staus updated");
         },
     });
 
