@@ -76,7 +76,7 @@ const QuizForm = ({ initialData, setDataToEdit }) => {
         onSuccess: () => {
             queryClient.invalidateQueries(["admin", "quizzes"]);
             reset();
-            setDataToEdit({});
+            setDataToEdit(null);
         },
         onError: (error) => {
             console.log(error);
@@ -209,7 +209,7 @@ const QuizForm = ({ initialData, setDataToEdit }) => {
                     <div
                         onClick={(e) => {
                             e.stopPropagation();
-                            setDataToEdit({});
+                            setDataToEdit(null);
                             return false;
                         }}
                         className='w-full text-center cursor-pointer bg-red-500 text-white text-primary-foreground p-2 rounded-md hover:bg-red-400 transition-colors'>
