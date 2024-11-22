@@ -30,6 +30,7 @@ const LeaderBoardPage = () => {
         myIncorrectAnswers,
         myCorrectAnswers,
         leaderboard,
+        topFiveRankHolders,
     } = useResult(data?.data && data?.data);
 
     const myPosition =
@@ -48,16 +49,15 @@ const LeaderBoardPage = () => {
         !isUserAttempts && navigate(`/quizzes/${quizsetId}`);
     }, [isUserAttempts, navigate, quizsetId]);
  */
-    return isLoading ? (
-        <LeaderBoardPageSkeliton />
-    ) : error ? (
-        <ErrorComponent />
-    ) : !isUserAttempts ? (
-        navigate(`/quizzes/${quizsetId}`)
-    ) : (
-        <>
-            <PageTitle title={"Qizzes - Leaderboard"} />
-            <main className='min-h-[calc(100vh-140px)] flex items-center justify-center'>
+    !isUserAttempts && navigate(`/quizzes/${quizsetId}`);
+    return (
+        <main className='min-h-[calc(100vh-140px)] flex items-center justify-center'>
+            <PageTitle title='Quizzes - Leaderboard' />
+            {isLoading ? (
+                <LeaderBoardPageSkeliton />
+            ) : error ? (
+                <ErrorComponent />
+            ) : (
                 <LeaderBoard>
                     <SelfResultCard
                         user={auth.user}
@@ -67,24 +67,21 @@ const LeaderBoardPage = () => {
                         myPosition={myPosition}
                     />
                     <TopFives quiz={data?.data.quiz}>
-                        {/*    */}
                         {leaderboard &&
-                            leaderboard
-                                .slice(0, 5)
-                                .map((leader) => (
-                                    <ScoreLeader
-                                        key={leader.userId}
-                                        highlight={
-                                            leader.userId === auth.user.id &&
-                                            leader.position <= 5
-                                        }
-                                        leader={leader}
-                                    />
-                                ))}
+                            topFiveRankHolders.map((leader) => (
+                                <ScoreLeader
+                                    key={leader.userId}
+                                    highlight={
+                                        leader.userId === auth.user.id &&
+                                        leader.position <= 5
+                                    }
+                                    leader={leader}
+                                />
+                            ))}
                     </TopFives>
                 </LeaderBoard>
-            </main>
-        </>
+            )}
+        </main>
     );
 };
 

@@ -36,71 +36,19 @@ const UsersQuizsetCard = ({ quizSet }) => {
     //get users result on this quiz
     const { totalCorrectMarks } = useResult(data?.data);
 
-    //================================================================
-
-    function handleClick() {
-        if (!auth?.accessToken) {
-            navigate("/login");
-        } else {
-            if (!isIattempted) {
-                navigate(`/quizzes/${quizSet.id}`);
-            } else {
-                navigate(`/result/${quizSet.id}`);
-            }
-        }
-    }
-
     return (
-        <div
-            onClick={handleClick}
-            className='rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow max-h-[450px] relative group cursor-pointer '>
+        <div className='rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow max-h-[450px] relative group cursor-pointer '>
             <div className='absolute transition-all text-white  text-center top-1/2 -translate-y-1/2 px-4'>
                 <h1 className=' text-5xl' style={{ fontFamily: "Jaro" }}>
                     {quizSet.title}
                 </h1>
                 <p className='mt-2 text-lg'>{quizSet.description}</p>
             </div>
-            <div className='hidden absolute transition-all bg-black/80 w-full h-full left-0 top-0 text-white group-hover:grid place-items-center'>
-                <div>
-                    {auth.user ? (
-                        isIattempted ? (
-                            <>
-                                <h1 className='text-3xl font-bold'>
-                                    Already Participated
-                                </h1>
-                                <h3 className='text-xl'>
-                                    Total Questions: {quizSet?.total_questions}
-                                </h3>
-                                <h3 className='text-xl '>
-                                    Total Marks: {data?.data?.quiz?.total_marks}
-                                </h3>
 
-                                <p className='text text-xl'>
-                                    You got{" "}
-                                    {totalCorrectMarks && totalCorrectMarks} out
-                                    of {data?.data?.quiz?.total_marks}
-                                </p>
-                                <Link
-                                    to={`/result/${quizSet.id}`}
-                                    className='text-md'>
-                                    Click to view your leaderboard
-                                </Link>
-                            </>
-                        ) : (
-                            <>
-                                <h3 className='text-xl'>
-                                    Total Questions: {quizSet?.total_questions}
-                                </h3>
-                                <h3 className='text-xl '>
-                                    Total Marks: {data?.data?.quiz?.total_marks}
-                                </h3>
-                                <h1 className='text-3xl font-bold'>
-                                    Ready To Take Quiz
-                                </h1>
-                            </>
-                        )
-                    ) : (
-                        <>
+            {!auth.accessToken ? (
+                <Link to='/login'>
+                    <div className='hidden absolute transition-all bg-black/80 w-full h-full left-0 top-0 text-white group-hover:grid place-items-center'>
+                        <div>
                             <h3 className='text-xl '>
                                 Total Questions: {quizSet?.total_questions}
                             </h3>
@@ -108,10 +56,53 @@ const UsersQuizsetCard = ({ quizSet }) => {
                             <h1 className='text-3xl font-bold'>
                                 Sign in To Take Quiz
                             </h1>
-                        </>
-                    )}
-                </div>
-            </div>
+                        </div>
+                    </div>
+                </Link>
+            ) : auth?.user && isIattempted ? (
+                <Link to={`/result/${quizSet.id}`}>
+                    <div className='hidden absolute transition-all bg-black/80 w-full h-full left-0 top-0 text-white group-hover:grid place-items-center'>
+                        <div>
+                            <h1 className='text-3xl font-bold'>
+                                Already Participated
+                            </h1>
+                            <h3 className='text-xl'>
+                                Total Questions: {quizSet?.total_questions}
+                            </h3>
+                            <h3 className='text-xl '>
+                                Total Marks: {data?.data?.quiz?.total_marks}
+                            </h3>
+
+                            <p className='text text-xl'>
+                                You got {totalCorrectMarks && totalCorrectMarks}{" "}
+                                out of {data?.data?.quiz?.total_marks}
+                            </p>
+                            <Link
+                                to={`/result/${quizSet.id}`}
+                                className='text-xl'>
+                                Click to view your leaderboard
+                            </Link>
+                        </div>
+                    </div>
+                </Link>
+            ) : (
+                <Link to={`/quizzes/${quizSet.id}`}>
+                    <div className='hidden absolute transition-all bg-black/80 w-full h-full left-0 top-0 text-white group-hover:grid place-items-center'>
+                        <div>
+                            <h3 className='text-xl'>
+                                Total Questions: {quizSet?.total_questions}
+                            </h3>
+                            <h3 className='text-xl '>
+                                Total Marks: {data?.data?.quiz?.total_marks}
+                            </h3>
+                            <h1 className='text-3xl font-bold'>
+                                Ready To Take Quiz
+                            </h1>
+                        </div>
+                    </div>
+                </Link>
+            )}
+
             <img
                 src={getImgURL(`${image}.jpg`)}
                 alt='JavaScript Hoisting'

@@ -19,7 +19,11 @@ const QuizActions = ({ handleDataToEdit, question, quizSet }) => {
 
     const { mutate: updateQuiz } = useMutation({
         mutationFn: ({ quizSetId, data }) => updateQuizSet(quizSetId, data),
+        onSuccess: () => {
+            queryClient.invalidateQueries(["admin", "quizzes"]);
+        },
     });
+    
 
     // handle delete confirm
     function onConfirm() {

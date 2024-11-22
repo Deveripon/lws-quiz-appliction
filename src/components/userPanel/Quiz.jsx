@@ -26,7 +26,7 @@ const Quiz = ({ quiz, answers, setAnswers }) => {
     const { mutate } = useMutation({
         mutationFn: ({ answers, quizId }) => submitQuizAnswer(answers, quizId),
         onSuccess: () => {
-            navigate(`/result/${quiz.id}`, { replace: true });
+            navigate(`/result/${quiz.id}`);
         },
     });
 
