@@ -12,9 +12,9 @@ const AvatarWithDropdown = ({ showName = false, nameClass, placeLocation }) => {
     const { pathname } = useLocation();
 
     function handleLogout() {
-        navigate("/login", { replace: true });
         localStorage.removeItem("auth");
         setAuth({});
+        navigate("/login", { replace: true });
     }
     return (
         <div className='relative inline-block text-left '>

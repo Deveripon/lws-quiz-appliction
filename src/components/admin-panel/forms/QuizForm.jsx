@@ -58,7 +58,7 @@ const QuizForm = ({ initialData, setDataToEdit }) => {
         onSuccess: () => {
             queryClient.invalidateQueries(["admin", "quizzes"]);
             toast.success("Question Added to the list", {
-                position: "top-right",
+                position: "bottom-right",
             });
             reset();
         },

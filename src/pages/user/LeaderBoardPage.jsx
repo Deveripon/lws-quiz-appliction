@@ -1,4 +1,4 @@
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import LeaderBoard from "../../components/userPanel/LeaderBoard";
 import ScoreLeader from "../../components/userPanel/ScoreLeader";
 import SelfResultCard from "../../components/userPanel/SelfResultCard";
@@ -16,6 +16,7 @@ const LeaderBoardPage = () => {
     const quizsetId = location.pathname.split("/")[2];
     const { auth } = useAuth();
     const { getAttempts } = useUsersApiHandlers();
+    const navigate = useNavigate();
 
     // attemps query with react query
     const { isLoading, data, error } = useQuery({
@@ -30,14 +31,25 @@ const LeaderBoardPage = () => {
         leaderboard,
     } = useResult(data?.data && data?.data);
 
+    console.log(`loggedInUser`, auth?.user);
+
+    console.log(`attempted users`, data);
+
     const myPosition =
         leaderboard &&
         leaderboard.find((leader) => leader.userId === auth.user.id);
+    const allAttempts = data && data?.data?.attempts;
+
+    const isUserAttempts =
+        allAttempts &&
+        allAttempts.find((attempt) => attempt?.user?.id === auth?.user?.id);
 
     return isLoading ? (
         <LeaderBoardPageSkeliton />
     ) : error ? (
         <ErrorComponent />
+    ) : !isUserAttempts ? (
+        navigate(`/quizzes/${quizsetId}`)
     ) : (
         <>
             <PageTitle title={"Qizzes - Leaderboard"} />
