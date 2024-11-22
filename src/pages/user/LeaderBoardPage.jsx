@@ -45,6 +45,7 @@ const LeaderBoardPage = () => {
         allAttempts &&
         allAttempts.find((attempt) => attempt?.user?.id === auth?.user?.id);
 
+    //check users action is valid or not
     useEffect(() => {
         !isUserAttempts && navigate(`/quizzes/${quizsetId}`);
     }, [isUserAttempts, navigate, quizsetId]);

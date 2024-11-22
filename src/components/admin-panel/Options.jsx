@@ -1,6 +1,6 @@
 const Options = ({ option, checked }) => {
     return (
-        <label className='flex items-center space-x-3'>
+        <label className='flex cursor-pointer items-center space-x-3'>
             <input
                 type='radio'
                 readOnly

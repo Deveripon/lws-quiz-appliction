@@ -1,17 +1,19 @@
 import { useMutation } from "@tanstack/react-query";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import { ArrowLeft, ArrowRight, Save } from "react-feather";
 import { useNavigate } from "react-router-dom";
 import useUsersApiHandlers from "../../hooks/useUsersApiHandlers";
 import Alert from "../common/Alert";
 import ConfirmationPopup from "../common/ConfirmationPopup";
+import { shuffleArray } from "../../utils";
 
 const Quiz = ({ quiz, answers, setAnswers }) => {
     const [alert, setAlert] = useState({
         status: false,
         text: "",
     });
+    const [shuffledOptions, setShuffledOptions] = useState([]);
     const [showingIndex, setShowingIndex] = useState(0);
     const [showPopup, setShowPopup] = useState(false);
     const currentQuestion = quiz && quiz?.questions[showingIndex];
@@ -21,9 +23,9 @@ const Quiz = ({ quiz, answers, setAnswers }) => {
     const { submitQuizAnswer } = useUsersApiHandlers();
 
     // mutation to submit quiz
-    const { mutate, data, isPending } = useMutation({
+    const { mutate } = useMutation({
         mutationFn: ({ answers, quizId }) => submitQuizAnswer(answers, quizId),
-        onSuccess: (response) => {
+        onSuccess: () => {
             navigate(`/result/${quiz.id}`, { replace: true });
         },
     });
@@ -40,6 +42,11 @@ const Quiz = ({ quiz, answers, setAnswers }) => {
     }
 
     const barWidth = ((showingIndex + 1) / quiz?.questions?.length) * 100;
+
+    useEffect(() => {
+        // Shuffle options only when the component mounts
+        setShuffledOptions(shuffleArray(currentQuestion?.options));
+    }, [currentQuestion?.options]);
 
     return (
         <div className='bg-white p-6 !pb-2 rounded-md'>
@@ -80,12 +87,11 @@ const Quiz = ({ quiz, answers, setAnswers }) => {
                 </h3>
             </div>
             <div className='grid grid-cols-2 gap-4'>
-                {currentQuestion?.options
-                    .sort(() => Math.random() - 0.9)
-                    .map((option, index) => (
+                {currentQuestion?.options &&
+                    shuffledOptions.map((option, index) => (
                         <label
                             key={index}
-                            className='flex items-center space-x-3 py-3 px-4 bg-primary/5 rounded-md text-lg'>
+                            className='flex cursor-pointer items-center space-x-3 py-3 px-4 bg-primary/5 rounded-md text-lg'>
                             {/*   Although it should have feature like select multiple options for better UX, but I follow the assignement and requirement and Instruction from LWS-SUPPORT regarding this issue */}
 
                             <input

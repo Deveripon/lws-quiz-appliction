@@ -36,6 +36,7 @@ const ResultPage = () => {
     //get computed result
     const { mySubmittedAnswers } = useResult(data?.data && data?.data);
 
+    //check users action is valid or not
     useEffect(() => {
         !isIattempedted && navigate(`/quizzes/${quizsetId}`);
     }, [isIattempedted, navigate, quizsetId]);

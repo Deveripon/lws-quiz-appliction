@@ -1,4 +1,3 @@
-import { getTopFiveRank } from "../utils";
 import useAuth from "./useAuth";
 
 const useResult = (data) => {

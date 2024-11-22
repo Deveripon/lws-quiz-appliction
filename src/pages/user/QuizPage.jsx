@@ -21,6 +21,7 @@ const QuizPage = () => {
         queryKey: ["quizzes", quizsetId],
     });
 
+    //check users action is valid or not
     useEffect(() => {
         data?.data?.user_attempt?.attempted && navigate(`/result/${quizsetId}`);
     }, [data?.data?.user_attempt?.attempted, navigate, quizsetId]);
