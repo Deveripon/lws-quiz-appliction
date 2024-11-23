@@ -9,8 +9,8 @@ import ResultSummery from "../../components/userPanel/ResultSummery";
 import useResult from "../../hooks/useResult";
 import useUsersApiHandlers from "../../hooks/useUsersApiHandlers";
 import PageTitle from "../../components/common/PageTitle";
-import Header from "../../components/userPanel/Header";
-
+import { AnimatePresence, easeIn, motion } from "motion/react";
+import { easeOut } from "motion";
 const ResultPage = () => {
     const { pathname } = useLocation();
     const quizsetId = pathname.split("/")[2];
@@ -40,7 +40,13 @@ const ResultPage = () => {
     !isIattempedted && navigate(`/quizzes/${quizsetId}`);
 
     return (
-        <div className='bg-background text-foreground min-h-screen '>
+        <motion.div
+            animate={{
+                opacity: [0, 1],
+                y: [-10, 0],
+                transition: { duration: 0.3, ease: easeOut },
+            }}
+            className='bg-background text-foreground min-h-screen '>
             <PageTitle title='Quizzes - Result' />
 
             {isLoading ? (
@@ -84,7 +90,7 @@ const ResultPage = () => {
                     </div>
                 </div>
             )}
-        </div>
+        </motion.div>
     );
 };
 

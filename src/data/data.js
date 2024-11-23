@@ -12,11 +12,11 @@ export const adminDashboardNavItems = [
     {
         id: "nav_3",
         title: "Manage Users",
-        path: "/admin/dashboard/users",
+        path: "/admin/dashboard/manage-users",
     },
     {
         id: "nav_4",
         title: "Manage Roles",
-        path: "/admin/dashboard/roles",
+        path: "/admin/dashboard/manage-roles",
     },
 ];

@@ -3,6 +3,7 @@ import {
     createRoutesFromElements,
     Route,
     RouterProvider,
+    useLocation,
 } from "react-router-dom";
 import HomePage from "../pages/user/HomePage";
 import QuizPage from "../pages/user/QuizPage";
@@ -18,14 +19,16 @@ import AdminPageLayout from "../pages/layouts/AdminPageLayout";
 import NotFoundPage from "../pages/error/NotFoundPage";
 import ErrorPage from "../pages/error/ErrorPage";
 import PrivateRoute from "./PrivateRoute";
+import NoContentPage from "../pages/admin/NoContentPage";
 
 const router = createBrowserRouter(
     createRoutesFromElements(
         <>
-            <Route path='*' element={<NotFoundPage />} />
-            {/*role based routing : User
-            below routes use a layout for user's pages */}
             <Route element={<UsersPageLayout />} errorElement={<ErrorPage />}>
+                <Route path='*' element={<NotFoundPage />} />
+                {/*role based routing : User
+            below routes use a layout for user's pages */}
+
                 <Route path='/' element={<HomePage />} />
                 <Route element={<PrivateRoute />}>
                     <Route path='/quizzes/:quizsetId' element={<QuizPage />} />
@@ -43,6 +46,7 @@ const router = createBrowserRouter(
             </Route>
 
             {/*these are appliction auth routes for login and registration. these are not protected */}
+
             <Route
                 path='/login'
                 errorElement={<ErrorPage />}
@@ -73,6 +77,18 @@ const router = createBrowserRouter(
                 <Route
                     path='/admin/dashboard/quizzes/:quizsetId'
                     element={<QuizEntryPage />}
+                />
+                <Route
+                    path='/admin/dashboard/settings'
+                    element={<NoContentPage />}
+                />
+                <Route
+                    path='/admin/dashboard/manage-users'
+                    element={<NoContentPage />}
+                />
+                <Route
+                    path='/admin/dashboard/manage-roles'
+                    element={<NoContentPage />}
                 />
             </Route>
         </>

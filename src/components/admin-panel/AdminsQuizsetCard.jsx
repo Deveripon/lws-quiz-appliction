@@ -3,12 +3,18 @@ import QuizIcon from "../../svg/QuizIcon";
 import cn from "../../utils/cn";
 import { useNavigate } from "react-router-dom";
 import CardActions from "./CardActions";
+import { motion } from "motion/react";
 
 const AdminsQuizsetCard = ({ quizCard }) => {
     const [menuOpen, setMenuOpen] = useState(false);
     const navigate = useNavigate();
     return (
-        <div
+        <motion.div
+            animate={{
+                opacity: [0, 0.2, 0.5, 0.8, 1],
+                y: [20, 0],
+            }}
+            transition={{ duration: 0.3 }}
             className={cn(
                 `bg-white relative ring-primary p-6 rounded-lg shadow-sm border  border-gray-200 group cursor-pointer `,
                 quizCard.status === "draft" && "bg-gray-800/50",
@@ -73,7 +79,7 @@ const AdminsQuizsetCard = ({ quizCard }) => {
                     )}
                 </div>
             </div>
-        </div>
+        </motion.div>
     );
 };
 
