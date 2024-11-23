@@ -17,9 +17,9 @@ const RegistrationPageInfo = () => {
                 <p className='mb-8 max-w-lg'>
                     Logging in unlocks your personal progress tracker, letting
                     you evaluate your performance and see how you stack up
-                    against others. Whether you're preparing for exams,
-                    improving your knowledge, or simply having fun, there's no
-                    better way to sharpen your mind.
+                    against others. Whether you{"'"}re preparing for exams,
+                    improving your knowledge, or simply having fun, there{"'"}s
+                    no better way to sharpen your mind.
                 </p>
             </div>
         </div>

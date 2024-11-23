@@ -38,7 +38,12 @@ const LoginForm = () => {
                 accessToken: data.tokens?.accessToken,
                 refreshToken: data.tokens?.refreshToken,
             });
-            navigate("/", { replace: true });
+
+            if (response && response?.data?.user?.role === "admin") {
+                navigate("/admin/dashboard/quizzes", { replace: true });
+            } else {
+                navigate("/", { replace: true });
+            }
         },
         onError: (error) => {
             setError("root", {
