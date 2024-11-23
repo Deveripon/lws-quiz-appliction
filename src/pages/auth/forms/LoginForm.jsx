@@ -40,7 +40,11 @@ const LoginForm = () => {
             });
 
             if (response && response?.data?.user?.role === "admin") {
-                navigate("/admin/dashboard/quizzes", { replace: true });
+                setTimeout(
+                    () =>
+                        navigate("/admin/dashboard/quizzes", { replace: true }),
+                    0
+                );
             } else {
                 navigate("/", { replace: true });
             }
