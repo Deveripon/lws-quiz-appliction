@@ -65,7 +65,7 @@ const CardActions = ({ quizCard, setMenuOpen }) => {
             <button
                 title='Delete'
                 onClick={(e) => handleAction(e, "delete")}
-                className='block hover:text-primary text-white w-full text-left '>
+                className='block hover:text-gray-500 text-white w-full text-left '>
                 <Trash />
             </button>
             {quizCard?.Questions && quizCard.Questions.length > 0 && (
@@ -74,7 +74,7 @@ const CardActions = ({ quizCard, setMenuOpen }) => {
                         <button
                             title='Unpublish'
                             onClick={(e) => handleAction(e, "draft")}
-                            className='block hover:text-primary text-white w-full text-left '>
+                            className='block hover:text-gray-500 text-white w-full text-left '>
                             <UnPublishIcon />
                         </button>
                     )}
@@ -83,7 +83,7 @@ const CardActions = ({ quizCard, setMenuOpen }) => {
                         <button
                             title='Publish'
                             onClick={(e) => handleAction(e, "published")}
-                            className='block hover:text-primary text-white w-full text-left '>
+                            className='block hover:text-gray-500 text-white w-full text-left '>
                             <Globe />
                         </button>
                     )}

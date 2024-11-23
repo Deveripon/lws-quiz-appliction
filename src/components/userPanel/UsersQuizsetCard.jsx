@@ -15,7 +15,6 @@ const UsersQuizsetCard = ({ quizSet }) => {
     const [image] = useState(
         bgImage[Math.floor(Math.random() * bgImage.length)]
     );
-    const navigate = useNavigate();
 
     // handle quiz click
     const { getAttempts } = useUsersApiHandlers();
@@ -80,7 +79,7 @@ const UsersQuizsetCard = ({ quizSet }) => {
                             <Link
                                 to={`/result/${quizSet.id}`}
                                 className='text-xl'>
-                                Click to view your leaderboard
+                                Click to view result
                             </Link>
                         </div>
                     </div>
