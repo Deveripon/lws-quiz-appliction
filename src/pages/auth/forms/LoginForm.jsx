@@ -10,7 +10,7 @@ import Alert from "../../../components/common/Alert";
 
 const LoginForm = () => {
     const navigate = useNavigate();
-    const { auth, setAuth } = useAuth();
+    const { setAuth } = useAuth();
     const {
         register,
         handleSubmit,
@@ -73,7 +73,7 @@ const LoginForm = () => {
                     id='email'
                     name='email'
                     className={cn(
-                        `w-full px-4 py-3 rounded-lg border border-gray-300 `,
+                        ` dark:bg-dark-secondary dark:text-dark-textPrimary w-full px-4 py-3 rounded-lg border border-gray-300 `,
                         errors?.email && "border-red-500 focus:outline-red-500"
                     )}
                     placeholder='Username or email address'

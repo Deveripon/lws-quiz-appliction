@@ -2,7 +2,7 @@ import authIllustration from "../../../assets/Saly-1.png";
 import whiteLogo from "../../../assets/logo-white.svg";
 const RegistrationPageInfo = () => {
     return (
-        <div className='hidden  lg:flex lg:w-1/2 bg-primary flex-col justify-between p-12  h-full fixed left-0 top-0'>
+        <div className='hidden dark:bg-dark-primary dark:text-dark-textPrimary  lg:flex lg:w-1/2 bg-primary flex-col justify-between p-12  h-full fixed left-0 top-0'>
             <div className='text-white'>
                 <img src={whiteLogo} className='h-8' />
                 <img

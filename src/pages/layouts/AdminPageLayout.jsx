@@ -14,7 +14,7 @@ const AdminPageLayout = () => {
         }
     }
     return (
-        <div className='bg-gray-100 min-h-screen flex '>
+        <div className='bg-gray-100 dark:bg-dark-primary min-h-screen flex '>
             <Sidebar />
             <Outlet />
         </div>

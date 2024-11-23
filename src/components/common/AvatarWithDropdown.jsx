@@ -32,7 +32,7 @@ const AvatarWithDropdown = ({ showName = false, nameClass, placeLocation }) => {
                 {showName && (
                     <h3
                         className={cn(
-                            `text-slate-200 absolute top-[11px] left-[50px] font-semibold`,
+                            `text-slate-200 dark:text-dark-textSecondary absolute top-[11px] left-[50px] font-semibold`,
                             nameClass
                         )}>
                         {auth?.user?.full_name}
@@ -50,7 +50,7 @@ const AvatarWithDropdown = ({ showName = false, nameClass, placeLocation }) => {
                     }}
                     ref={ref}
                     className={cn(
-                        `absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5`,
+                        `absolute right-0 mt-2 w-48 bg-white dark:bg-dark-textPrimary dark:text-dark-textPrimary rounded-md shadow-lg ring-1 ring-black ring-opacity-5`,
                         placeLocation === "dashboard" &&
                             "right-[30px] bottom-[50px] mt-2"
                     )}>

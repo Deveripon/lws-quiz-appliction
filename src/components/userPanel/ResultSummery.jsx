@@ -7,9 +7,9 @@ const ResultSummery = ({ data }) => {
         useResult(data);
 
     return (
-        <div className='max-h-screen flex-1 overflow-hidden lg:flex pt-[100px] lg:pt-0  bg-primary flex-col justify-center p-12 relative'>
+        <div className='max-h-screen flex-1 overflow-hidden lg:flex pt-[100px] lg:pt-0  bg-primary dark:bg-dark-primary  flex-col justify-center p-12 relative'>
             <div>
-                <div className='text-white'>
+                <div className='text-white dark:text-dark-textPrimary'>
                     <div>
                         <h2 className='text-4xl font-bold mb-2'>
                             {data?.quiz?.title}

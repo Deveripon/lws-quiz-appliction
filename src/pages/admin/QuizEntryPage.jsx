@@ -12,7 +12,8 @@ import QuizEntry from "../../components/admin-panel/QuizEntry";
 import { getSortedByUpdatedAt } from "../../utils";
 import NoData from "../../components/common/NoData";
 import PublishAction from "../../components/admin-panel/PublishAction";
-import Alert from "../../components/common/Alert";
+import { motion } from "motion/react";
+import { easeIn } from "motion";
 
 const QuizEntryPage = () => {
     const { pathname } = useLocation();
@@ -40,8 +41,14 @@ const QuizEntryPage = () => {
         <main className='md:flex-grow px-4 sm:px-6 lg:px-8 py-8'>
             <div>
                 <BreadCrumbs />
-                <div className='grid grid-cols-1 lg:grid-cols-2 md:gap-8 lg:gap-12'>
-                    <div className=''>
+                <div className=' dark:text-dark-textPrimary grid grid-cols-1 lg:grid-cols-2 md:gap-8 lg:gap-12'>
+                    <motion.div
+                        animate={{
+                            opacity: [0, 1],
+                            y: [-10, 0],
+                            transition: { duration: 0.3, ease: easeIn },
+                        }}
+                        className=''>
                         <QuizsetInfo quiz={thisQuizData} />
                         <div className='space-y-4 mb-12'>
                             {!dataToEdit &&
@@ -72,7 +79,7 @@ const QuizEntryPage = () => {
                                 />
                             )}
                         </div>
-                    </div>
+                    </motion.div>
                     <PublishAction
                         status={thisQuizData?.status}
                         quiz={thisQuizData}

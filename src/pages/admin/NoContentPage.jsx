@@ -14,7 +14,7 @@ const NoContentPage = () => {
                 y: [-10, 0],
                 transition: { duration: 0.3, ease: easeIn },
             }}
-            className='flex  min-w-screen items-center place-content-center justify-center min-h-screen bg-gray-100 text-gray-800'>
+            className='flex dark:text-dark-textPrimary dark:bg-dark-primary  min-w-screen items-center place-content-center justify-center min-h-screen bg-gray-100 text-gray-800'>
             <div className='mt-8'>
                 <img
                     src={notFoundSvg}
@@ -24,7 +24,9 @@ const NoContentPage = () => {
             </div>
 
             <div className='text-center'>
-                <h1 className='text-9xl font-bold text-primary'>Sorry !</h1>
+                <h1 className='text-9xl font-bold dark:text-dark-textPrimary text-primary'>
+                    Sorry !
+                </h1>
                 <h2 className='mt-4 text-3xl font-semibold'>
                     No Content Found In This Page
                 </h2>

@@ -2,28 +2,28 @@ import { Link, useLocation } from "react-router-dom";
 import Logo from "../../components/userPanel/Logo";
 import useAuth from "../../hooks/useAuth";
 import AvatarWithDropdown from "../common/AvatarWithDropdown";
-import { motion } from "motion/react";
+import ThemeSwitcher from "../common/ThemeSwitcher";
 
 const Header = () => {
     const { auth } = useAuth();
     const { pathname } = useLocation();
     return (
-        <header className='flex justify-between bg-gray-100 py-3 items-center mb-12 sticky z-50 top-[-2px] pt-[20px]'>
+        <header className='flex dark:bg-dark-primary justify-between bg-gray-100 py-3 items-center mb-12 sticky z-50 top-[-2px] pt-[20px]'>
             <Link to='/'>
                 <Logo />
             </Link>
-            <div>
+            <div className='flex justify-center items-center'>
                 {!auth.accessToken ? (
                     <>
                         <Link
                             to='/login'
-                            className='px-4 py-2 rounded hover:bg-primary hover:text-white transition-colors'
+                            className='px-4 py-2 rounded dark:text-dark-textPrimary hover:bg-primary hover:text-white transition-colors'
                             style={{ fontFamily: "Jaro" }}>
                             Sign In
                         </Link>
                         <Link
                             to='/register'
-                            className='px-4 py-2 rounded hover:bg-primary hover:text-white transition-colors'
+                            className='px-4 py-2 rounded dark:text-dark-textPrimary hover:bg-primary hover:text-white transition-colors'
                             style={{ fontFamily: "Jaro" }}>
                             Sign Up
                         </Link>
@@ -38,9 +38,11 @@ const Header = () => {
                                     Go to Dashboard
                                 </Link>
                             )}
+
                         <AvatarWithDropdown />
                     </div>
                 )}
+                <ThemeSwitcher />
             </div>
         </header>
     );

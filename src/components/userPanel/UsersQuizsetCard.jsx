@@ -37,7 +37,7 @@ const UsersQuizsetCard = ({ quizSet }) => {
     const { totalCorrectMarks } = useResult(data?.data);
 
     return (
-        <div className='rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow max-h-[450px] relative group cursor-pointer '>
+        <div className=' rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow max-h-[450px] relative group cursor-pointer '>
             <div className='absolute transition-all text-white  text-center top-1/2 -translate-y-1/2 px-4'>
                 <h1 className=' text-5xl' style={{ fontFamily: "Jaro" }}>
                     {quizSet.title}

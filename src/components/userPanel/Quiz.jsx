@@ -49,7 +49,7 @@ const Quiz = ({ quiz, answers, setAnswers }) => {
     }, [currentQuestion?.options]);
 
     return (
-        <div className='bg-white p-6 !pb-2 rounded-md'>
+        <div className='bg-white dark:text-dark-textPrimary dark:bg-dark-secondary p-6 !pb-2 rounded-md'>
             {showPopup &&
                 createPortal(
                     <ConfirmationPopup
@@ -91,7 +91,7 @@ const Quiz = ({ quiz, answers, setAnswers }) => {
                     shuffledOptions.map((option, index) => (
                         <label
                             key={index}
-                            className='flex cursor-pointer items-center space-x-3 py-3 px-4 bg-primary/5 rounded-md text-lg'>
+                            className='flex cursor-pointer items-center space-x-3 py-3 px-4 bg-primary/5 dark:bg-dark-primary rounded-md text-lg'>
                             {/*   Although it should have feature like select multiple options for better UX, but I follow the assignement and requirement and Instruction from LWS-SUPPORT regarding this issue */}
 
                             <input

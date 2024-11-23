@@ -1,7 +1,7 @@
 import authIllustration from "../../../assets/Saly-1.png";
 const LoginPageInfo = () => {
     return (
-        <div className='hidden lg:flex lg:w-1/2 bg-primary flex-col justify-between p-12 relative'>
+        <div className=' dark:bg-dark-secondary hidden lg:flex lg:w-1/2 bg-primary flex-col justify-between p-12 relative'>
             <div className='text-white'>
                 <img
                     src={authIllustration}
@@ -13,9 +13,9 @@ const LoginPageInfo = () => {
                 <p className='mb-8'>
                     Logging in unlocks your personal progress tracker, letting
                     you evaluate your performance and see how you stack up
-                    against others. Whether you're preparing for exams,
-                    improving your knowledge, or simply having fun, there's no
-                    better way to sharpen your mind.
+                    against others. Whether you{"'"}re preparing for exams,
+                    improving your knowledge, or simply having fun, there{"'"}s
+                    no better way to sharpen your mind.
                 </p>
             </div>
         </div>

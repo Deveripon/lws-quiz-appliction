@@ -18,7 +18,7 @@ const QuizsetCreateForm = () => {
     } = useForm();
 
     // use Mutation with react query
-    const { mutate, error } = useMutation({
+    const { mutate } = useMutation({
         mutationFn: createQuizSet,
         onSuccess: (data) => {
             queryClient.invalidateQueries(["quizzes"]);
@@ -45,7 +45,7 @@ const QuizsetCreateForm = () => {
                 label='Quiz Title'
                 htmlFor='title'
                 error={errors.title}
-                labelClass='block text-sm font-medium text-gray-700 mb-1'>
+                labelClass='block text-sm font-medium text-gray-700 mb-1 dark:text-dark-textPrimary'>
                 <input
                     {...register("title", {
                         required: "Title is required to add Quiz*",
@@ -58,7 +58,7 @@ const QuizsetCreateForm = () => {
                     id='title'
                     name='title'
                     className={cn(
-                        `w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-buzzr-purple focus:border-buzzr-purple`,
+                        ` dark:bg-dark-secondary dark:text-dark-textPrimary y w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-buzzr-purple focus:border-buzzr-purple`,
                         errors.title && "border-red-500 focus:outline-red-500"
                     )}
                     placeholder='Enter Quiz Title'
@@ -69,7 +69,7 @@ const QuizsetCreateForm = () => {
                 className='mb-6'
                 label='Description (Optional)'
                 htmlFor='description'
-                labelClass='block text-sm font-medium text-gray-700 mb-1'
+                labelClass='block text-sm font-medium text-gray-700 mb-1 dark:text-dark-textPrimary'
                 error={errors?.description}>
                 <textarea
                     {...register("description", {
@@ -85,7 +85,7 @@ const QuizsetCreateForm = () => {
                     name='description'
                     rows={6}
                     className={cn(
-                        `w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-buzzr-purple focus:border-buzzr-purple'
+                        `dark:text-dark-textPrimary dark:bg-dark-secondary w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-buzzr-purple focus:border-buzzr-purple'
                     placeholder='Description`,
                         errors?.description &&
                             "border-red-500 focus:outline-red-500"

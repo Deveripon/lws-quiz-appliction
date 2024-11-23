@@ -21,7 +21,7 @@ const PasswordInput = ({
                 name={name}
                 id={id}
                 className={cn(
-                    `w-full px-4 py-3 rounded-lg border border-gray-300`,
+                    `dark:bg-dark-secondary dark:text-dark-textPrimary w-full px-4 py-3 rounded-lg border border-gray-300`,
                     inputClass,
                     errors?.[name] && "border-red-500 focus:outline-red-500"
                 )}

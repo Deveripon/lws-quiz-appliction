@@ -6,17 +6,19 @@ import AvatarWithDropdown from "../common/AvatarWithDropdown";
 const Sidebar = () => {
     const { pathname } = useLocation();
     return (
-        <aside className='min-w-64 bg-primary p-6 flex flex-col'>
+        <aside className='min-w-64 dark:bg-dark-secondary dark:text-dark-textPrimary bg-primary p-6 flex flex-col'>
             <div className='mb-10'>
                 <Link to='/admin/dashboard/quizzes'>
                     <LogoWhite />
                 </Link>
             </div>
             <nav className='flex-grow'>
-                <ul className='space-y-2'>
+                <ul className='space-y-2 '>
                     {adminDashboardNavItems.length > 0 &&
                         adminDashboardNavItems.map((item) => (
-                            <li key={item.id}>
+                            <li
+                                className='dark:text-dark-textSecondary'
+                                key={item.id}>
                                 <NavLink
                                     to={item.path}
                                     className={

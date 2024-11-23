@@ -46,7 +46,7 @@ const ResultPage = () => {
                 y: [-10, 0],
                 transition: { duration: 0.3, ease: easeOut },
             }}
-            className='bg-background text-foreground min-h-screen '>
+            className='bg-background dark:bg-dark-primary text-foreground min-h-screen '>
             <PageTitle title='Quizzes - Result' />
 
             {isLoading ? (

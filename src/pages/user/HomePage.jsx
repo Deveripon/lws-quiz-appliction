@@ -24,9 +24,9 @@ const HomePage = () => {
         <>
             <PageTitle title='Quizzes - Home' />
             {auth?.user && <UserWelcomeSection />}
-            <main className='bg-white p-6 rounded-md h-full'>
+            <main className='bg-white dark:bg-dark-secondary p-6 rounded-md h-full'>
                 <section>
-                    <h3 className='text-2xl font-bold mb-6'>
+                    <h3 className='text-2xl dark:text-dark-textSecondary font-bold mb-6'>
                         Participate In Quizees
                     </h3>
 

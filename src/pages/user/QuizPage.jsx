@@ -9,7 +9,7 @@ import useUsersApiHandlers from "../../hooks/useUsersApiHandlers";
 import PageTitle from "../../components/common/PageTitle";
 import QuizPageSkeliton from "../../components/skelitons/QuizPageSkeliton";
 import { motion } from "motion/react";
-import { easeIn, easeInOut } from "motion";
+import { easeIn } from "motion";
 
 const QuizPage = () => {
     const { pathname } = useLocation();

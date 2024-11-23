@@ -71,7 +71,7 @@ const RegistrationForm = () => {
                         id='full_name'
                         name='full_name'
                         className={cn(
-                            `w-full px-4 py-3 rounded-lg border border-gray-300`,
+                            ` dark:bg-dark-secondary dark:text-dark-textPrimary w-full px-4 py-3 rounded-lg border border-gray-300`,
                             errors?.full_name &&
                                 "border-red-500 focus:outline-red-500"
                         )}
@@ -95,7 +95,7 @@ const RegistrationForm = () => {
                         type='email'
                         id='email'
                         className={cn(
-                            `w-full px-4 py-3 rounded-lg border border-gray-300`,
+                            `dark:bg-dark-secondary dark:text-dark-textPrimary w-full px-4 py-3 rounded-lg border border-gray-300`,
                             errors?.email &&
                                 "border-red-500 focus:border-red-500"
                         )}

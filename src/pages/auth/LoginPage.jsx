@@ -11,7 +11,7 @@ const LoginPage = () => {
         return <Navigate to='/' />;
     }
     return (
-        <div className='bg-white text-gray-800 overflow-hidden'>
+        <div className='bg-white dark:bg-dark-primary dark:text-dark-textPrimary text-gray-800 overflow-hidden'>
             <PageTitle title='Quizzes - Login' />
             <div className='flex min-h-screen'>
                 <LoginPageInfo />
@@ -24,14 +24,18 @@ const LoginPage = () => {
                         <h1 className='text-5xl font-bold mb-8'>Sign in</h1>
                         <LoginForm />
                         <div className='text-center'>
-                            <a href='#' className='text-primary'>
+                            <a
+                                href='#'
+                                className='text-primary dark:text-dark-textSecondary'>
                                 Forgot Password
                             </a>
                         </div>
                         <div className='mt-8'>
                             <p className='text-center'>
                                 No Account ?{" "}
-                                <Link to='/register' className='text-primary'>
+                                <Link
+                                    to='/register'
+                                    className='text-primary  dark:text-dark-textSecondary'>
                                     Sign up
                                 </Link>
                             </p>

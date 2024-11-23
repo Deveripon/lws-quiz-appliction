@@ -4,6 +4,7 @@ import cn from "../../utils/cn";
 import { useNavigate } from "react-router-dom";
 import CardActions from "./CardActions";
 import { motion } from "motion/react";
+import { easeIn } from "motion";
 
 const AdminsQuizsetCard = ({ quizCard }) => {
     const [menuOpen, setMenuOpen] = useState(false);
@@ -11,14 +12,16 @@ const AdminsQuizsetCard = ({ quizCard }) => {
     return (
         <motion.div
             animate={{
-                opacity: [0, 0.2, 0.5, 0.8, 1],
-                y: [20, 0],
+                opacity: [0, 1],
+                y: [-10, 0],
+                transition: { duration: 0.3, ease: easeIn },
             }}
-            transition={{ duration: 0.3 }}
             className={cn(
-                `bg-white relative ring-primary p-6 rounded-lg shadow-sm border  border-gray-200 group cursor-pointer `,
-                quizCard.status === "draft" && "bg-gray-800/50",
-                quizCard.status === "published" && "bg-purple-800 text-white"
+                `bg-white relative dark:text-dark-textPrimary ring-primary p-6 rounded-lg shadow-sm border  border-gray-200 group cursor-pointer `,
+                quizCard.status === "draft" &&
+                    "bg-gray-800/50 dark:border-dark-secondary",
+                quizCard.status === "published" &&
+                    "bg-purple-800 text-white dark:bg-dark-optimal dark:border-dark-textSecondary"
             )}
             onMouseEnter={() => {
                 setMenuOpen(true);

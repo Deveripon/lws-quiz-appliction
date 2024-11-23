@@ -1,6 +1,6 @@
 const LeaderBoardPageSkeliton = () => {
     return (
-        <div className='bg-white rounded-lg shadow-lg w-full max-w-6xl overflow-hidden'>
+        <div className='bg-white dark:bg-dark-primary rounded-lg shadow-lg w-full max-w-6xl overflow-hidden'>
             <div className='p-6 md:p-8 grid grid-cols-1 md:grid-cols-2 gap-8'>
                 {/* Left Column Skeleton */}
                 <div className='bg-primary rounded-lg p-6 text-white'>

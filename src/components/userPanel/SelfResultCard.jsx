@@ -7,7 +7,7 @@ const SelfResultCard = ({
     myPosition,
 }) => {
     return (
-        <div className='bg-primary rounded-lg p-6 text-white'>
+        <div className='bg-primary dark:bg-dark-primary rounded-lg p-6 text-white'>
             <div className='flex flex-col items-center mb-6'>
                 <img
                     src={defaultAvatar}

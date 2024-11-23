@@ -113,7 +113,7 @@ const QuizForm = ({ initialData, setDataToEdit }) => {
     }, [initialData, reset]);
 
     return (
-        <form onSubmit={handleSubmit(handleFormSubmit)} className='space-y-4'>
+        <form onSubmit={handleSubmit(handleFormSubmit)} className='space-y-4 '>
             <h2 className='text-xl font-bold text-foreground'>
                 {isEditMode ? "Update Quiz" : "Create Quiz"}
             </h2>
@@ -134,7 +134,7 @@ const QuizForm = ({ initialData, setDataToEdit }) => {
                         },
                     })}
                     className={cn(
-                        `w-full mt-2 p-2 border border-input rounded-md bg-background text-foreground`,
+                        `dark:text-dark-textPrimary dark:bg-dark-secondary w-full mt-2 p-2 border border-input rounded-md bg-background text-foreground`,
                         errors.question &&
                             "border-red-500 focus:outline-red-500"
                     )}
@@ -143,17 +143,19 @@ const QuizForm = ({ initialData, setDataToEdit }) => {
             </InputField>
 
             {/* Options */}
-            <p className='text-sm text-gray-600 mt-4'>Add Options</p>
+            <p className='text-sm text-gray-600 mt-4 dark:text-dark-textPrimary '>
+                Add Options
+            </p>
 
             <div id='optionsContainer' className='space-y-2 mt-4'>
                 {fields.map((field, index) => (
                     <div
                         key={field.id}
-                        className='flex items-center space-x-2 px-4 py-1 rounded-md group focus-within:ring focus-within:ring-primary/80 bg-white'>
+                        className='flex dark:text-dark-textPrimary dark:bg-dark-secondary items-center space-x-2 px-4 py-1 rounded-md group focus-within:ring focus-within:ring-primary/80 bg-white'>
                         {/* Correct Answer Checkbox */}
                         <input
                             type='checkbox'
-                            className='text-primary focus:ring-0 w-4 h-4'
+                            className='text-primary dark:text-dark-textPrimary dark:bg-dark-secondary focus:ring-0 w-4 h-4'
                             checked={correctAnswer === options[index]}
                             onChange={() =>
                                 setValue("correctAnswer", options[index])
@@ -164,7 +166,7 @@ const QuizForm = ({ initialData, setDataToEdit }) => {
                         <input
                             {...register(`options.${index}`)}
                             defaultValue={field.value || ""}
-                            className='w-full p-2 bg-transparent rounded-md text-foreground outline-none focus:ring-0'
+                            className=' dark:text-dark-textPrimary dark:bg-dark-secondary w-full p-2 bg-transparent rounded-md text-foreground outline-none focus:ring-0'
                             placeholder={`Option ${index + 1}`}
                             onChange={(e) => {
                                 if (correctAnswer === options[index]) {

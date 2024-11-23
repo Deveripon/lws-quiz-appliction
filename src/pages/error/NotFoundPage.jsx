@@ -6,7 +6,7 @@ const NotFoundPage = () => {
         ? "/admin/dashboard/quizzes"
         : "/";
     return (
-        <div className='flex  min-w-screen items-center place-content-center justify-center min-h-screen bg-gray-100 text-gray-800'>
+        <div className='flex dark:text-dark-textPrimary dark:bg-dark-primary  min-w-screen items-center place-content-center justify-center min-h-screen bg-gray-100 text-gray-800'>
             <div className='mt-8'>
                 <img
                     src={notFoundSvg}
@@ -15,7 +15,9 @@ const NotFoundPage = () => {
                 />
             </div>
             <div className='text-center'>
-                <h1 className='text-9xl font-bold text-primary'>404</h1>
+                <h1 className='text-9xl font-bold text-primary dark:text-dark-textPrimary'>
+                    404
+                </h1>
                 <h2 className='mt-4 text-3xl font-semibold'>Page Not Found</h2>
                 <p className='mt-2 text-lg text-gray-600'>
                     Sorry, the page you are looking for does not exist or has

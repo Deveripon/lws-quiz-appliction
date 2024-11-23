@@ -7,8 +7,8 @@ const QuizWithAnswer = ({ index, mySubmittedAnswers, ques, children }) => {
         mySubmittedAnswers?.find((ans) => ans?.question_id === ques?.id);
 
     return (
-        <div className='rounded-lg border border-gray-200 overflow-hidden shadow-sm mb-4'>
-            <div className='bg-white p-6 md:w-[450px]  lg:w-[600px] !pb-2'>
+        <div className='rounded-lg border border-gray-200 dark:border-dark-textSecondary overflow-hidden dark:text-dark-textPrimary shadow-sm mb-4'>
+            <div className='bg-white dark:bg-dark-primary p-6 md:w-[450px]  lg:w-[600px] !pb-2'>
                 <div className='flex justify-between items-center mb-4'>
                     <h3 className='text-lg text-wrap lg:w-[400px] xl:w-[550px] font-semibold'>
                         {index + 1}. {ques?.question}

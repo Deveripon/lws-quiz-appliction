@@ -44,7 +44,7 @@ const QuizActions = ({ handleDataToEdit, question, quizSet }) => {
     }
 
     return (
-        <div className='flex space-x-4 bg-primary/10 px-6 py-2 min-h-[40px]'>
+        <div className='flex space-x-4 dark:text-dark-textPrimary dark:bg-gray-800 bg-primary/10 px-6 py-2 min-h-[40px]'>
             {isShow &&
                 createPortal(
                     <ConfirmationPopup
@@ -62,7 +62,7 @@ const QuizActions = ({ handleDataToEdit, question, quizSet }) => {
             </button>
             <button
                 onClick={() => handleDataToEdit(question)}
-                className='text-primary hover:text-primary/60 duration-200 font-medium'>
+                className='text-primary dark:text-dark-textPrimary dark:hover:text-gray-500  hover:text-primary/60 duration-200 font-medium'>
                 Edit Question
             </button>
         </div>

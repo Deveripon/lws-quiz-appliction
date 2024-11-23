@@ -13,7 +13,11 @@ const UserProfileDisplayer = ({ textColor }) => {
                 className='w-10 h-10 rounded-full mr-3 object-cover'
             />
 
-            <span className={cn(`text-white font-semibold`, textColor)}>
+            <span
+                className={cn(
+                    `text-white dark:text-dark-textSecondary font-semibold`,
+                    textColor
+                )}>
                 {auth?.user?.full_name}
             </span>
         </div>

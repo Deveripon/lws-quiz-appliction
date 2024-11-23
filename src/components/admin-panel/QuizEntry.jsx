@@ -1,9 +1,17 @@
+import { easeIn } from "motion";
 import QuizActions from "./QuizActions";
+import { motion } from "motion/react";
 
 const QuizEntry = ({ quizSet, question, index, handleDataToEdit }) => {
     return (
-        <div className='rounded-lg overflow-hidden shadow-sm mb-4'>
-            <div className='bg-white p-6 !pb-2'>
+        <motion.div
+            animate={{
+                opacity: [0, 1],
+                y: [-10, 0],
+                transition: { duration: 0.3, ease: easeIn },
+            }}
+            className='rounded-lg overflow-hidden shadow-sm mb-4 dark:text-dark-textPrimary dark:bg-dark-secondary'>
+            <div className='bg-white dark:text-dark-textPrimary dark:bg-dark-secondary p-6 !pb-2'>
                 <div className='flex justify-between items-center mb-4'>
                     <h3 className='text-lg font-semibold'>
                         {index + 1}. {question.question} ?
@@ -29,7 +37,7 @@ const QuizEntry = ({ quizSet, question, index, handleDataToEdit }) => {
                 handleDataToEdit={handleDataToEdit}
                 question={question}
             />
-        </div>
+        </motion.div>
     );
 };
 
