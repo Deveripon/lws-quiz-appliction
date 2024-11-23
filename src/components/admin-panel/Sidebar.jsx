@@ -2,11 +2,12 @@ import { Link, NavLink, useLocation } from "react-router-dom";
 import { adminDashboardNavItems } from "../../data/data";
 import LogoWhite from "./LogoWhite";
 import AvatarWithDropdown from "../common/AvatarWithDropdown";
+import ThemeSwitcher from "../common/ThemeSwitcher";
 
 const Sidebar = () => {
     const { pathname } = useLocation();
     return (
-        <aside className='min-w-64 dark:bg-dark-secondary dark:text-dark-textPrimary bg-primary p-6 flex flex-col'>
+        <aside className='min-w-64 relative dark:bg-dark-secondary dark:text-dark-textPrimary bg-primary p-6 flex flex-col'>
             <div className='mb-10'>
                 <Link to='/admin/dashboard/quizzes'>
                     <LogoWhite />
@@ -36,7 +37,11 @@ const Sidebar = () => {
                         ))}
                 </ul>
             </nav>
+
             <AvatarWithDropdown showName={true} placeLocation='dashboard' />
+            <div className='swither absolute right-2 bottom-6'>
+                <ThemeSwitcher />
+            </div>
         </aside>
     );
 };

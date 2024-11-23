@@ -53,18 +53,12 @@ const QuizEntryPage = () => {
                         <div className='space-y-4 mb-12'>
                             {!dataToEdit &&
                             thisQuizData?.status === "published" ? (
-                                <div className='flex items-center p-4 mb-4 text-sm text-red-800 bg-red-100 border border-red-300 rounded-lg'>
-                                    <svg
-                                        className='w-5 h-5 mr-2 text-red-600'
-                                        fill='currentColor'
-                                        viewBox='0 0 20 20'
-                                        xmlns='http://www.w3.org/2000/svg'>
-                                        <path
-                                            fillRule='evenodd'
-                                            d='M8.257 3.099c.765-1.36 2.721-1.36 3.486 0l6.671 11.87c.748 1.33-.21 3-1.742 3H3.328c-1.532 0-2.49-1.67-1.742-3l6.671-11.87zM11 14a1 1 0 10-2 0 1 1 0 002 0zm-1-6a1 1 0 00-.993.883L9 9v3a1 1 0 001.993.117L11 12V9a1 1 0 00-1-1z'
-                                            clipRule='evenodd'></path>
-                                    </svg>
-                                    <span className='font-normal'>
+                                <div className='flex flex-col justify-center items-center p-4 mb-4 h-[300px] gap-3 text-gray-800 dark:bg-dark-secondary dark:text-dark-textPrimary bg-gray-200  rounded-lg'>
+                                    <h2 className='text-2xl'>
+                                        {" "}
+                                        Published Quiz
+                                    </h2>
+                                    <span className='font-normal dark:text-dark-textSecondary text-lg text-pretty'>
                                         You Can not add question to a already
                                         published Quiz. If you really want to do
                                         this, you need to unpublish the quiz
