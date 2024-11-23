@@ -1,6 +1,6 @@
 const ErrorComponent = ({ message }) => {
     return (
-        <div className='flex flex-col w-full items-center justify-center h-[500px] bg-gray-200 text-red-800 rounded'>
+        <div className='flex flex-col w-full items-center justify-center h-[500px] dark:bg-dark-primary dark:text-dark-textPrimary bg-gray-200 text-red-800 rounded'>
             <h1 className='text-4xl font-bold mb-4'>
                 Oops! Something went wrong
             </h1>
