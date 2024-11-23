@@ -21,7 +21,9 @@ const Sidebar = () => {
                                     to={item.path}
                                     className={
                                         pathname.includes(
-                                            item.title.toLowerCase()
+                                            item.title
+                                                .replace("-", " ")
+                                                .toLowerCase()
                                         )
                                             ? "block py-2 px-4 rounded-lg bg-buzzr-purple bg-white text-primary font-bold"
                                             : "block py-2 px-4 rounded-lg text-gray-100 hover:bg-gray-100 hover:text-primary"

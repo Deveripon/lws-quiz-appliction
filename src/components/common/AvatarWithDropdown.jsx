@@ -5,6 +5,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 import cn from "../../utils/cn";
 import { motion } from "motion/react";
+import { stagger } from "motion";
 const AvatarWithDropdown = ({ showName = false, nameClass, placeLocation }) => {
     const navigate = useNavigate();
     const { setAuth, auth } = useAuth();

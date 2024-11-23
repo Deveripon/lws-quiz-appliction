@@ -1,13 +1,15 @@
 import QuizsetDetails from "../../components/userPanel/QuizsetDetails";
 import QuizArea from "../../components/userPanel/QuizArea";
 import Quiz from "../../components/userPanel/Quiz";
-import { Navigate, useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import ErrorComponent from "../../components/common/ErrorComponent";
 import useUsersApiHandlers from "../../hooks/useUsersApiHandlers";
 import PageTitle from "../../components/common/PageTitle";
 import QuizPageSkeliton from "../../components/skelitons/QuizPageSkeliton";
+import { motion } from "motion/react";
+import { easeIn, easeInOut } from "motion";
 
 const QuizPage = () => {
     const { pathname } = useLocation();
@@ -28,7 +30,13 @@ const QuizPage = () => {
     isAttemped && navigate(`/result/${quizsetId}`);
 
     return (
-        <main className='max-w-8xl mx-auto lg:h-[calc(100vh-10rem)]'>
+        <motion.main
+            animate={{
+                opacity: [0, 1],
+                y: [-10, 0],
+                transition: { duration: 0.3, ease: easeIn },
+            }}
+            className='max-w-8xl mx-auto lg:h-[calc(100vh-10rem)]'>
             <PageTitle title='Quizzes - Quiz' />
 
             {isLoading ? (
@@ -47,7 +55,7 @@ const QuizPage = () => {
                     </QuizArea>
                 </div>
             )}
-        </main>
+        </motion.main>
     );
 };
 
