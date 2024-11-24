@@ -7,6 +7,7 @@ const QuizWithAnswer = ({
     adminsAnswer,
     ques,
     children,
+    isInPerviewMode,
 }) => {
     // transform admins answers object structure same as mySubmittedAnswers data structure
     const adminAnsArray = Object.entries(adminsAnswer).map(
@@ -49,7 +50,7 @@ const QuizWithAnswer = ({
                                                 ? "!bg-[#3a945b] !text-[#ffffff] "
                                                 : "bg-[#FD7272] text-gray-700"
                                         )}>
-                                        {adminsAnswer ? (
+                                        {isInPerviewMode ? (
                                             <input
                                                 type='radio'
                                                 readOnly
@@ -78,7 +79,7 @@ const QuizWithAnswer = ({
                                         <div className='flex justify-between w-full pr-4'>
                                             <span>{option}</span>
 
-                                            {adminsAnswer
+                                            {isInPerviewMode
                                                 ? option ===
                                                       ques.correctAnswer &&
                                                   ques.correctAnswer ===
@@ -97,7 +98,7 @@ const QuizWithAnswer = ({
                                             )}
                                         </div>
                                     </label>
-                                    {adminsAnswer
+                                    {isInPerviewMode
                                         ? option === adminsAns?.answer &&
                                           adminsAns.answer !==
                                               ques.correctAnswer && (
@@ -123,7 +124,7 @@ const QuizWithAnswer = ({
                                               </span>
                                           )}
 
-                                    {adminsAnswer
+                                    {isInPerviewMode
                                         ? option !== adminsAns?.answer &&
                                           option === ques.correctAnswer && (
                                               <span className='text-xs '>
@@ -145,7 +146,7 @@ const QuizWithAnswer = ({
                                               </span>
                                           )}
 
-                                    {adminAnsArray
+                                    {isInPerviewMode
                                         ? option === adminsAns?.answer &&
                                           option === ques.correctAnswer && (
                                               <span className='text-xs '>

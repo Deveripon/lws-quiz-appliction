@@ -92,6 +92,7 @@ const ResultPage = () => {
                                             key={ques.id}
                                             ques={ques}
                                             adminsAnswer={adminsAnswer}
+                                            isInPerviewMode={isInPerviewMode}
                                         />
                                     );
                                 })
