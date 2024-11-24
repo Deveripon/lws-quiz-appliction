@@ -8,7 +8,6 @@ const QuizWithAnswer = ({
     ques,
     children,
 }) => {
-    
     // transform admins answers object structure same as mySubmittedAnswers data structure
     const adminAnsArray = Object.entries(adminsAnswer).map(
         ([question_id, answer]) => ({
@@ -50,19 +49,31 @@ const QuizWithAnswer = ({
                                                 ? "!bg-[#3a945b] !text-[#ffffff] "
                                                 : "bg-[#FD7272] text-gray-700"
                                         )}>
-                                        <input
-                                            type='radio'
-                                            readOnly
-                                            disabled={
-                                                option !== adminsAns?.answer ||
-                                                myAnswer?.answer
-                                            }
-                                            checked={
-                                                option === adminsAns?.answer ||
-                                                myAnswer?.answer
-                                            }
-                                            className='form-radio text-buzzr-purple'
-                                        />
+                                        {adminsAnswer ? (
+                                            <input
+                                                type='radio'
+                                                readOnly
+                                                disabled={
+                                                    option !== adminsAns?.answer
+                                                }
+                                                checked={
+                                                    option === adminsAns?.answer
+                                                }
+                                                className='form-radio text-buzzr-purple'
+                                            />
+                                        ) : (
+                                            <input
+                                                type='radio'
+                                                readOnly
+                                                disabled={
+                                                    option !== myAnswer?.answer
+                                                }
+                                                checked={
+                                                    option === myAnswer?.answer
+                                                }
+                                                className='form-radio text-buzzr-purple'
+                                            />
+                                        )}
 
                                         <div className='flex justify-between w-full pr-4'>
                                             <span>{option}</span>
