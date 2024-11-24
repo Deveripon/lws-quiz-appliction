@@ -23,7 +23,7 @@ const UsersQuizsetCard = ({ quizSet }) => {
     const { data } = useQuery({
         queryFn: getAttempts,
         queryKey: ["quizzes", quizSet.id, "attempts"],
-        enabled: !!auth?.user,
+        enabled: !!auth?.user, // enables when user logged in
     });
 
     //check that user already attemted this quiz or not
@@ -58,6 +58,33 @@ const UsersQuizsetCard = ({ quizSet }) => {
                         </div>
                     </div>
                 </Link>
+            ) : auth?.user?.role === "admin" ? (
+                <div className='hidden absolute transition-all bg-black/80 w-full h-full left-0 top-0 text-white group-hover:grid place-items-center'>
+                    <div>
+                        <h1 className='text-3xl font-bold'>Preview</h1>
+                        <h3 className='text-xl'>
+                            Total Questions: {quizSet?.total_questions}
+                        </h3>
+                        <h3 className='text-xl mb-4'>
+                            Total Marks: {data?.data?.quiz?.total_marks}
+                        </h3>
+                        <Link
+                            to={`/quizzes/${quizSet.id}`}
+                            className=' rounded'>
+                            <h4 className='text-lg underline underline-offset-2 hover:text-dark-textSecondary cursor-pointer font-bold'>
+                                See the quiestions
+                            </h4>
+                        </Link>
+                        <br />
+                        <Link
+                            to={`/leaderboard/${quizSet.id}`}
+                            className=' rounded '>
+                            <h4 className='text-lg underline underline-offset-2 hover:text-dark-textSecondary cursor-pointer font-bold'>
+                                See the leaderboard
+                            </h4>
+                        </Link>
+                    </div>
+                </div>
             ) : auth?.user && isIattempted ? (
                 <Link to={`/result/${quizSet.id}`}>
                     <div className='hidden absolute transition-all bg-black/80 w-full h-full left-0 top-0 text-white group-hover:grid place-items-center'>

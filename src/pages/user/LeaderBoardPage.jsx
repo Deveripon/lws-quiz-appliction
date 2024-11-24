@@ -12,6 +12,7 @@ import useUsersApiHandlers from "../../hooks/useUsersApiHandlers";
 import PageTitle from "../../components/common/PageTitle";
 import { motion } from "motion/react";
 import { easeIn } from "motion";
+import { span } from "framer-motion/client";
 const LeaderBoardPage = () => {
     const location = useLocation();
     const quizsetId = location.pathname.split("/")[2];
@@ -44,7 +45,9 @@ const LeaderBoardPage = () => {
         allAttempts &&
         allAttempts.find((attempt) => attempt?.user?.id === auth?.user?.id);
 
-    !isUserAttempts && navigate(`/quizzes/${quizsetId}`);
+    if (auth?.user?.role !== "admin") {
+        !isUserAttempts && navigate(`/quizzes/${quizsetId}`);
+    }
     return (
         <motion.main
             animate={{
@@ -68,7 +71,11 @@ const LeaderBoardPage = () => {
                         myPosition={myPosition}
                     />
                     <TopFives quiz={data?.data.quiz}>
-                        {leaderboard &&
+                        {leaderboard && topFiveRankHolders.length === 0 ? (
+                            <span className='text-red-500 text-xl'>
+                                No Perticipents for this Quiz
+                            </span>
+                        ) : (
                             topFiveRankHolders.map((leader) => (
                                 <ScoreLeader
                                     key={leader.userId}
@@ -78,7 +85,8 @@ const LeaderBoardPage = () => {
                                     }
                                     leader={leader}
                                 />
-                            ))}
+                            ))
+                        )}
                     </TopFives>
                 </LeaderBoard>
             )}

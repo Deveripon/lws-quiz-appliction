@@ -12,6 +12,23 @@ const Header = () => {
             <Link to='/'>
                 <Logo />
             </Link>
+            {auth?.user?.role === "admin" && (
+                <div className='dark:text-dark-textPrimary fixed max-w-96 top-20 bg-yellow-600/40 rounded text-pretty p-2 text-gray-800'>
+                    <h1>
+                        <span className='font-bold text-lg'>
+                            {" "}
+                            ℹ️ Information:
+                        </span>{" "}
+                        {"  "}You are in a <u>Test/Preview</u> mode.
+                    </h1>
+                    <h4 className='defination'>
+                        You can test quiz by perticipating as real user but your
+                        submittion will not store in database and your
+                        leaderboard will not generate.
+                    </h4>
+                </div>
+            )}
+
             <div className='flex justify-center gap-3 items-center'>
                 <div className='item'>
                     {!auth.accessToken ? (

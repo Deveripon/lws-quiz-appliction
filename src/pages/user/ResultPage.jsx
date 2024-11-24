@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { Link, Navigate, useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import whiteLogoImage from "../../assets/logo-white.svg";
 import ErrorComponent from "../../components/common/ErrorComponent";
 import QuizWithAnswer from "../../components/common/QuizWithAnswer";
@@ -9,11 +9,15 @@ import ResultSummery from "../../components/userPanel/ResultSummery";
 import useResult from "../../hooks/useResult";
 import useUsersApiHandlers from "../../hooks/useUsersApiHandlers";
 import PageTitle from "../../components/common/PageTitle";
-import { AnimatePresence, easeIn, motion } from "motion/react";
+import { motion } from "motion/react";
 import { easeOut } from "motion";
+import useAuth from "../../hooks/useAuth";
 const ResultPage = () => {
-    const { pathname } = useLocation();
-    const quizsetId = pathname.split("/")[2];
+    const { auth } = useAuth();
+    const location = useLocation();
+    const adminsAnswer = location.state || {};
+    const quizsetId = location?.pathname.split("/")[2];
+    const isInPerviewMode = auth?.user?.role === "admin";
     const navigate = useNavigate();
 
     const { getQuizById, getAttempts } = useUsersApiHandlers();
@@ -37,7 +41,9 @@ const ResultPage = () => {
     //get computed result
     const { mySubmittedAnswers } = useResult(data?.data && data?.data);
 
-    !isIattempedted && navigate(`/quizzes/${quizsetId}`);
+    if (auth?.user?.role !== "admin") {
+        !isIattempedted && navigate(`/quizzes/${quizsetId}`);
+    }
 
     return (
         <motion.div
@@ -65,7 +71,10 @@ const ResultPage = () => {
                     </Link>
 
                     <div className='flex flex-col lg:flex-row min-w-screen '>
-                        <ResultSummery data={data?.data} />
+                        <ResultSummery
+                            isInPerviewMode={isInPerviewMode}
+                            data={data?.data}
+                        />
                         <ResultDetails>
                             {questionGetTimeError ? (
                                 <div className='flex justify-center items-center bg-gray-200 p-3'>
@@ -82,6 +91,7 @@ const ResultPage = () => {
                                             }
                                             key={ques.id}
                                             ques={ques}
+                                            adminsAnswer={adminsAnswer}
                                         />
                                     );
                                 })
