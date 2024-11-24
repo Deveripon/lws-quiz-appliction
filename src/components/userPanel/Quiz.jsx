@@ -7,8 +7,10 @@ import useUsersApiHandlers from "../../hooks/useUsersApiHandlers";
 import Alert from "../common/Alert";
 import ConfirmationPopup from "../common/ConfirmationPopup";
 import { shuffleArray } from "../../utils";
+import useAuth from "../../hooks/useAuth";
 
 const Quiz = ({ quiz, answers, setAnswers }) => {
+    const { auth } = useAuth();
     const [alert, setAlert] = useState({
         status: false,
         text: "",
@@ -55,16 +57,26 @@ const Quiz = ({ quiz, answers, setAnswers }) => {
                     <ConfirmationPopup
                         onConfirm={onConfirm}
                         onCancel={onCancel}>
-                        <h4>
+                        <h4 className='w-96'>
+                            <span className='font-bold text-xl'>
+                                ⚠️ Warning
+                            </span>{" "}
+                            <br />
                             Are you sure you want to submit the quiz? you
                             answered{" "}
-                            <span className='font-semibold'>{totalAnswer}</span>{" "}
+                            <span className='font-semibold'>
+                                {totalAnswer}
+                            </span>{" "}
                             questions out of{" "}
                             <span className='font-semibold'>
                                 {quiz?.questions.length}
                             </span>{" "}
                             questions. Once you submitted the quiz, you will not
                             be able to re-submit.
+                            <br />
+                            <span className='font-bold mt-5'>
+                                Are you sure to do that ?
+                            </span>
                         </h4>
                     </ConfirmationPopup>,
                     document.body
@@ -177,7 +189,16 @@ const Quiz = ({ quiz, answers, setAnswers }) => {
                                     currentQuestion.id in answers &&
                                     answers[currentQuestion.id] !== ""
                                 ) {
-                                    setShowPopup(true);
+                                    if (auth?.user?.role === "admin") {
+                                        console.log(
+                                            `admin submitting the quiz`
+                                        );
+                                        navigate(`/result/${quiz?.id}`, {
+                                            state: { ...answers },
+                                        });
+                                    } else {
+                                        setShowPopup(true);
+                                    }
                                 } else {
                                     setAlert({
                                         status: true,

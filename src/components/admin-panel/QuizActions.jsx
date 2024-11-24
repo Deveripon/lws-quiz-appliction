@@ -17,6 +17,7 @@ const QuizActions = ({ handleDataToEdit, question, quizSet }) => {
         },
     });
 
+    // mutation to update question
     const { mutate: updateQuiz } = useMutation({
         mutationFn: ({ quizSetId, data }) => updateQuizSet(quizSetId, data),
         onSuccess: () => {
@@ -27,7 +28,8 @@ const QuizActions = ({ handleDataToEdit, question, quizSet }) => {
     // handle delete confirm
     function onConfirm() {
         // if this is the last question than change quiz to draft before delete last quiz
-        if (quizSet?.Questions.length === 1) {
+
+        if (quizSet?.status === "published") {
             const quizSetId = quizSet?.id;
             const data = {
                 status: "draft",
@@ -50,8 +52,35 @@ const QuizActions = ({ handleDataToEdit, question, quizSet }) => {
                     <ConfirmationPopup
                         onCancel={onCancel}
                         onConfirm={onConfirm}>
-                        Are You Sure, you going to delete this question. This
-                        process can not be undone.
+                        {quizSet?.status === "published" ? (
+                            <h3 className='text-gray-800 capitalize w-96'>
+                                <span className='font-bold text-xl'>
+                                    ⚠️ Warning
+                                </span>{" "}
+                                <br />
+                                This is already published quiz. if you delete
+                                this question, it can affect your users
+                                experience and leaderboard. So, be sure before
+                                doing that. if you proceed, the quiz will be
+                                unpublished and keep as draft. <br /> <br />{" "}
+                                <span className='font-bold mt-5'>
+                                    Are you sure to do that ?
+                                </span>
+                            </h3>
+                        ) : (
+                            <h3 className='text-gray-800 capitalize'>
+                                <span className='font-bold text-xl'>
+                                    ⚠️ Warning
+                                </span>{" "}
+                                <br />
+                                You are going to delete this question. This
+                                process can not be undone.
+                                <br /> <br />{" "}
+                                <span className='font-bold mt-5'>
+                                    Are you sure to do that ?
+                                </span>
+                            </h3>
+                        )}
                     </ConfirmationPopup>,
                     document.body
                 )}

@@ -10,8 +10,10 @@ import PageTitle from "../../components/common/PageTitle";
 import QuizPageSkeliton from "../../components/skelitons/QuizPageSkeliton";
 import { motion } from "motion/react";
 import { easeIn } from "motion";
+import useAuth from "../../hooks/useAuth";
 
 const QuizPage = () => {
+    const { auth } = useAuth();
     const { pathname } = useLocation();
     const quizsetId = pathname.split("/")[2];
     const [answers, setAnswers] = useState({});
@@ -27,7 +29,9 @@ const QuizPage = () => {
     const isAttemped = data?.data?.user_attempt?.attempted;
     console.log(isAttemped);
 
-    isAttemped && navigate(`/result/${quizsetId}`);
+    if (auth?.user?.role !== "admin") {
+        isAttemped && navigate(`/result/${quizsetId}`);
+    }
 
     return (
         <motion.main

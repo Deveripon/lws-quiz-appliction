@@ -199,7 +199,7 @@ const QuizForm = ({ initialData, setDataToEdit }) => {
                 onClick={() => {
                     append("New Option"); // Append a new option string
                 }}
-                className='mt-2 text-primary hover:underline'>
+                className='mt-2 text-primary dark:text-dark-textPrimary hover:underline'>
                 Add Option
             </button>
 

@@ -3,7 +3,7 @@ import CloseIcon from "../../svg/CloseIcon";
 const ConfirmationPopup = ({ children, onConfirm, onCancel }) => {
     return (
         <div className='fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50'>
-            <div className='bg-white dark:bg-dark-textPrimary rounded-lg shadow-lg w-96 p-6 relative'>
+            <div className='bg-white dark:bg-dark-textPrimary rounded-lg shadow-lg w-fit  p-6 relative'>
                 {/* Close Icon */}
                 <button
                     className='absolute top-3 right-3 text-gray-400 hover:text-gray-600'
