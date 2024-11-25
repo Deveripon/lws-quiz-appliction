@@ -34,8 +34,15 @@ const Quiz = ({ quiz, answers, setAnswers }) => {
 
     // handle submittion confirm
     function onConfirm() {
-        setShowPopup(false);
-        mutate({ answers, quizId: quiz?.id });
+        if (auth?.user?.role === "admin") {
+            console.log(`admin submitting the quiz`);
+            navigate(`/result/${quiz?.id}`, {
+                state: { ...answers },
+            });
+        } else {
+            setShowPopup(false);
+            mutate({ answers, quizId: quiz?.id });
+        }
     }
 
     // handle submittion cancel
@@ -189,16 +196,7 @@ const Quiz = ({ quiz, answers, setAnswers }) => {
                                     currentQuestion.id in answers &&
                                     answers[currentQuestion.id] !== ""
                                 ) {
-                                    if (auth?.user?.role === "admin") {
-                                        console.log(
-                                            `admin submitting the quiz`
-                                        );
-                                        navigate(`/result/${quiz?.id}`, {
-                                            state: { ...answers },
-                                        });
-                                    } else {
-                                        setShowPopup(true);
-                                    }
+                                    setShowPopup(true);
                                 } else {
                                     setAlert({
                                         status: true,

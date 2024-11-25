@@ -53,22 +53,22 @@ const QuizActions = ({ handleDataToEdit, question, quizSet }) => {
                         onCancel={onCancel}
                         onConfirm={onConfirm}>
                         {quizSet?.status === "published" ? (
-                            <h3 className='text-gray-800 capitalize w-96'>
+                            <h3 className='text-gray-800 w-96'>
                                 <span className='font-bold text-xl'>
                                     ⚠️ Warning
                                 </span>{" "}
                                 <br />
-                                This is already published quiz. if you delete
+                                This is already published quiz. If you delete
                                 this question, it can affect your users
                                 experience and leaderboard. So, be sure before
-                                doing that. if you proceed, the quiz will be
+                                doing that. If you proceed, the quiz will be
                                 unpublished and keep as draft. <br /> <br />{" "}
                                 <span className='font-bold mt-5'>
                                     Are you sure to do that ?
                                 </span>
                             </h3>
                         ) : (
-                            <h3 className='text-gray-800 capitalize'>
+                            <h3 className='text-gray-800 sentance'>
                                 <span className='font-bold text-xl'>
                                     ⚠️ Warning
                                 </span>{" "}

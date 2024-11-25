@@ -7,6 +7,7 @@ import { useLocation } from "react-router-dom";
 import { useEffect } from "react";
 import Alert from "../../common/Alert";
 import toast from "react-hot-toast";
+import { span } from "framer-motion/client";
 
 const QuizForm = ({ initialData, setDataToEdit }) => {
     const { pathname } = useLocation();
@@ -144,8 +145,14 @@ const QuizForm = ({ initialData, setDataToEdit }) => {
 
             {/* Options */}
             <p className='text-sm text-gray-600 mt-4 dark:text-dark-textPrimary '>
-                Add Options
+                {isEditMode ? "Edit option's text" : "Add Options"}
             </p>
+            {isEditMode && (
+                <span className='text-red-500 text-sm'>
+                    You can&apos;t change the correct option, but you can change
+                    the spelling mistake.{" "}
+                </span>
+            )}
 
             <div id='optionsContainer' className='space-y-2 mt-4'>
                 {fields.map((field, index) => (
@@ -160,6 +167,7 @@ const QuizForm = ({ initialData, setDataToEdit }) => {
                             onChange={() =>
                                 setValue("correctAnswer", options[index])
                             }
+                            disabled={isEditMode}
                         />
 
                         {/* Option Text */}
