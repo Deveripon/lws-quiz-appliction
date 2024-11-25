@@ -1,4 +1,5 @@
 import defaultAvatar from "../../assets/avater.webp";
+import trofeeImage from "../../assets/trofee.png";
 import cn from "../../utils/cn";
 
 const ScoreLeader = ({ highlight, leader }) => {
@@ -17,7 +18,14 @@ const ScoreLeader = ({ highlight, leader }) => {
                 />
                 <div>
                     <h3 className='font-semibold'>{leader.full_name}</h3>
-                    <p className='text-sm text-gray-500'>
+                    <p className='text-sm text-gray-500 flex'>
+                        {leader.position === 1 && (
+                            <img
+                                className='size-5 mr-2'
+                                src={trofeeImage}
+                                alt='trofeeImage'
+                            />
+                        )}{" "}
                         Rank: {leader.position}
                     </p>
                 </div>
