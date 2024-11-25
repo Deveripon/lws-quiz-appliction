@@ -52,6 +52,23 @@ This is a Final assignment of React Part - Reactive Accelarator Batch 2
 
 -   [x] আপনাদের এক একটি Quiz Question ডিলিট এবং আপডেট করার ব্যবস্থা করতে হবে । এক্ষত্রে Delete Quiz এবং Update Quiz API ব্যবহার করতে হবে ।
 
+
+
+## Extra Features Addition:
+
+- 1. এডমিনের কুইজ টেস্ট করার জন্য টেস্ট মুড ইমপ্লিমেন্ট করা হয়েছে ।
+- 2.
+
+
+
+
+
+
+
+
+
+
+
 ## Component Breakdown
 
 ### User View
